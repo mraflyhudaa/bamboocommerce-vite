@@ -116,7 +116,7 @@ const Navbar = () => {
     <div className='sticky top-0 z-50 bg-white'>
       {/* Mobile menu */}
       <Transition.Root show={open} as={Fragment}>
-        <Dialog as='div' className='relative z-40 lg:hidden' onClose={setOpen}>
+        <Dialog as='div' className='relative z-50 lg:hidden' onClose={setOpen}>
           <Transition.Child
             as={Fragment}
             enter='transition-opacity ease-linear duration-300'
