@@ -110,15 +110,12 @@ const ProductList = () => {
                                         role='list'
                                         className='font-medium text-gray-900 px-2 py-3'>
                                         <li
-                                          id={`filter-mobile-${section.id}-${optionIdx}`}>
-                                          <button
-                                            href={option.href}
-                                            value={option.value}
-                                            onClick={(e) =>
-                                              setFilter(e.target.value)
-                                            }>
+                                          id={`filter-${section.id}-${optionIdx}`}
+                                          className='text-sm'>
+                                          <Link
+                                            to={`/products/${option.value}`}>
                                             {option.label}
-                                          </button>
+                                          </Link>
                                         </li>
                                       </ul>
                                       {/* <input
