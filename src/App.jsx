@@ -6,6 +6,7 @@ import {
   Redirect,
 } from 'react-router-dom';
 import './App.css';
+import ScrollToTop from './components/ScrollToTop';
 import Checkout from './pages/Checkout';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
@@ -18,6 +19,7 @@ const App = () => {
 
   return (
     <Router>
+      <ScrollToTop />
       <Switch>
         <Route exact path='/'>
           <Home />
