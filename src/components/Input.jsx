@@ -1,21 +1,18 @@
 import React from 'react';
 
 const Input = (props) => {
-  const style =
-    'focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md';
   return (
-    <div>
+    <div className={props.class}>
       <label
-        htmlFor={props.label}
-        className='block text-sm font-medium text-gray-700'>
+        htmlFor={props.for}
+        className='block text-sm font-semibold text-black mt-4'>
         {props.label}
       </label>
-      <div className='mt-1 relative rounded-md shadow-sm'>
-        <input
-          {...props}
-          className='focus:ring-green-500 focus:border-green-500 block w-full sm:text-sm border-gray-300 rounded-md'
-        />
-      </div>
+      <input
+        {...props}
+        required
+        className='mt-2 appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 green:z-10 sm:text-sm'
+      />
     </div>
   );
 };
