@@ -74,7 +74,7 @@ const Product = (props) => {
               </p>
             </Link>
           ))
-        : products.map((product) => (
+        : products.slice(props.start, props.end).map((product) => (
             <Link
               key={product._id}
               to={`product/${product._id}`}
