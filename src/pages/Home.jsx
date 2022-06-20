@@ -150,13 +150,6 @@ const Home = () => {
                       Order Now
                     </a>
                   </div>
-                  <div className='mt-3 sm:mt-0 sm:ml-3'>
-                    <a
-                      href='#'
-                      className='w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-normal rounded-md text-green-700 bg-indigo-100 hover:bg-indigo-200 md:py-4 md:text-lg md:px-10'>
-                      See our products
-                    </a>
-                  </div>
                 </div>
               </div>
             </main>
@@ -204,7 +197,7 @@ const Home = () => {
 
       <div className='bg-white'>
         <div className='max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8'>
-          <h2 className='text-2xl font-extrabold tracking-tight text-gray-900'>
+          <h2 className='text-2xl font-bold tracking-tight text-gray-900 pb-6'>
             Products
           </h2>
 
