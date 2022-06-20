@@ -9,72 +9,8 @@ import {
 } from '@heroicons/react/outline';
 import { Link } from 'react-router-dom';
 import Cart from './Cart';
-
-const navigation = {
-  categories: [
-    {
-      id: 'products',
-      name: 'Products',
-      featured: [
-        {
-          name: 'New Arrivals',
-          href: '/products',
-          imageSrc:
-            'https://tailwindui.com/img/ecommerce-images/mega-menu-category-01.jpg',
-          imageAlt:
-            'Models sitting back to back, wearing Basic Tee in black and bone.',
-        },
-        {
-          name: 'Basic Tees',
-          href: '#',
-          imageSrc:
-            'https://tailwindui.com/img/ecommerce-images/mega-menu-category-02.jpg',
-          imageAlt:
-            'Close up of Basic Tee fall bundle with off-white, ochre, olive, and black tees.',
-        },
-      ],
-      sections: [
-        {
-          id: 'outdoors',
-          name: 'Outdoors',
-          items: [
-            { name: 'Bamboo Fences', href: '#' },
-            { name: 'Bamboo Gate Doors', href: '#' },
-            { name: 'Bamboo Mats', href: '#' },
-            { name: 'Bamboo Poles', href: '#' },
-            { name: 'Bamboo Poles Half Round', href: '#' },
-            { name: 'Bamboo Pergolas', href: '#' },
-            { name: 'Bamboo Borders', href: '#' },
-            { name: 'Bamboo Slats', href: '#' },
-          ],
-        },
-        {
-          id: 'indoors',
-          name: 'Indoors',
-          items: [
-            { name: 'Bamboo & Reed Roller Blinds', href: '#' },
-            { name: 'Bamboo Room Dividers', href: '#' },
-          ],
-        },
-        {
-          id: 'building',
-          name: 'Building',
-          items: [
-            { name: 'Full Nelson', href: '#' },
-            { name: 'My Way', href: '#' },
-            { name: 'Re-Arranged', href: '#' },
-            { name: 'Counterfeit', href: '#' },
-            { name: 'Significant Other', href: '#' },
-          ],
-        },
-      ],
-    },
-  ],
-  pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
-  ],
-};
+import Input from './Input';
+import { navigation } from '../data';
 
 const products = [
   {
@@ -91,6 +27,30 @@ const products = [
   },
   {
     id: 2,
+    name: 'Medium Stuff Satchel',
+    href: '#',
+    color: 'Blue',
+    price: '$32.00',
+    quantity: 1,
+    imageSrc:
+      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-02.jpg',
+    imageAlt:
+      'Front of satchel with blue canvas body, black straps and handle, drawstring top, and front zipper pouch.',
+  },
+  {
+    id: 3,
+    name: 'Throwback Hip Bag',
+    href: '#',
+    color: 'Salmon',
+    price: '$90.00',
+    quantity: 1,
+    imageSrc:
+      'https://tailwindui.com/img/ecommerce-images/shopping-cart-page-04-product-01.jpg',
+    imageAlt:
+      'Salmon orange fabric pouch with match zipper, gray zipper pull, and adjustable hip belt.',
+  },
+  {
+    id: 4,
     name: 'Medium Stuff Satchel',
     href: '#',
     color: 'Blue',
@@ -243,17 +203,17 @@ const Navbar = () => {
                 <div className='border-t border-gray-200 py-6 px-4 space-y-6'>
                   <div className='flow-root'>
                     <Link
-                      to='/signin'
+                      to='signin'
                       className='-m-2 p-2 block font-normal text-gray-900'>
                       Sign in
                     </Link>
                   </div>
                   <div className='flow-root'>
-                    <a
-                      href='#'
+                    <Link
+                      to='register'
                       className='-m-2 p-2 block font-normal text-gray-900'>
                       Create account
-                    </a>
+                    </Link>
                   </div>
                 </div>
               </Dialog.Panel>
@@ -366,11 +326,11 @@ const Navbar = () => {
                           Shipping and taxes calculated at checkout.
                         </p>
                         <div className='mt-6'>
-                          <a
-                            href='#'
+                          <Link
+                            to={'/checkout'}
                             className='flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700'>
                             Checkout
-                          </a>
+                          </Link>
                         </div>
                         <div className='mt-6 flex justify-center text-center text-sm text-gray-500'>
                           <p>
@@ -395,11 +355,9 @@ const Navbar = () => {
       </Transition.Root>
 
       <header className='z-40 bg-white'>
-        <nav
-          aria-label='Top'
-          className='max-w-full mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='border-b border-gray-200'>
-            <div className='h-16 flex items-center'>
+        <nav aria-label='Top' className='max-w-full mx-auto '>
+          <div className='border-b border-gray-200 '>
+            <div className='h-16 flex items-center mx-4 sm:mx-6 lg:mx-8'>
               <button
                 type='button'
                 className='bg-white p-2 rounded-md text-gray-400 lg:hidden'
@@ -410,14 +368,14 @@ const Navbar = () => {
 
               {/* Logo */}
               <div className='ml-4 flex lg:ml-0'>
-                <a href='#'>
+                <Link to='/'>
                   <span className='sr-only'>Workflow</span>
                   <img
                     className='h-8 w-auto'
                     src='https://tailwindui.com/img/logos/workflow-mark.svg?color=green&shade=600'
                     alt=''
                   />
-                </a>
+                </Link>
               </div>
 
               {/* Flyout menus */}
@@ -537,16 +495,16 @@ const Navbar = () => {
               <div className='ml-auto flex items-center'>
                 <div className='hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6'>
                   <Link
-                    to='/signin'
+                    to='signin'
                     className='text-sm font-normal text-gray-700 hover:text-gray-800'>
                     Sign in
                   </Link>
                   <span className='h-6 w-px bg-gray-200' aria-hidden='true' />
-                  <a
-                    href='#'
+                  <Link
+                    to='signup'
                     className='text-sm font-normal text-gray-700 hover:text-gray-800'>
                     Create account
-                  </a>
+                  </Link>
                 </div>
 
                 {/* Search */}
