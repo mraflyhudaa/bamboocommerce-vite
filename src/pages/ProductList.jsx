@@ -6,19 +6,23 @@ import {
   FilterIcon,
   MinusSmIcon,
   PlusSmIcon,
-  ViewGridIcon,
 } from '@heroicons/react/solid';
 import Navbar from '../components/Navbar';
 import Product from '../components/Product';
 import Footer from '../components/Footer';
 import { sortOptions, subCategories, filters } from '../data';
+import { Link, useLocation, useParams } from 'react-router-dom';
 
-function classNames(...classes) {
-  return classes.filter(Boolean).join(' ');
-}
+// function classNames(...classes) {
+//   return classes.filter(Boolean).join(' ');
+// }
 
 const ProductList = () => {
+  const location = useLocation();
+  const cat = location.pathname.split('/')[2];
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [filter, setFilter] = useState({});
+  const [sort, setSort] = useState('newest');
 
   return (
     <>
@@ -29,7 +33,7 @@ const ProductList = () => {
           <Transition.Root show={mobileFiltersOpen} as={Fragment}>
             <Dialog
               as='div'
-              className='relative z-40 lg:hidden'
+              className='relative z-50 lg:hidden'
               onClose={setMobileFiltersOpen}>
               <Transition.Child
                 as={Fragment}
@@ -68,17 +72,6 @@ const ProductList = () => {
                     {/* Filters */}
                     <form className='mt-4 border-t border-gray-200'>
                       <h3 className='sr-only'>Categories</h3>
-                      <ul
-                        role='list'
-                        className='font-medium text-gray-900 px-2 py-3'>
-                        {subCategories.map((category) => (
-                          <li key={category.name}>
-                            <a href={category.href} className='block px-2 py-3'>
-                              {category.name}
-                            </a>
-                          </li>
-                        ))}
-                      </ul>
 
                       {filters.map((section) => (
                         <Disclosure
@@ -108,12 +101,27 @@ const ProductList = () => {
                                 </Disclosure.Button>
                               </h3>
                               <Disclosure.Panel className='pt-6'>
-                                <div className='space-y-6'>
+                                <div>
                                   {section.options.map((option, optionIdx) => (
                                     <div
                                       key={option.value}
                                       className='flex items-center'>
-                                      <input
+                                      <ul
+                                        role='list'
+                                        className='font-medium text-gray-900 px-2 py-3'>
+                                        <li
+                                          id={`filter-mobile-${section.id}-${optionIdx}`}>
+                                          <button
+                                            href={option.href}
+                                            value={option.value}
+                                            onClick={(e) =>
+                                              setFilter(e.target.value)
+                                            }>
+                                            {option.label}
+                                          </button>
+                                        </li>
+                                      </ul>
+                                      {/* <input
                                         id={`filter-mobile-${section.id}-${optionIdx}`}
                                         name={`${section.id}[]`}
                                         defaultValue={option.value}
@@ -125,7 +133,7 @@ const ProductList = () => {
                                         htmlFor={`filter-mobile-${section.id}-${optionIdx}`}
                                         className='ml-3 min-w-0 flex-1 text-gray-500'>
                                         {option.label}
-                                      </label>
+                                      </label> */}
                                     </div>
                                   ))}
                                 </div>
@@ -142,13 +150,25 @@ const ProductList = () => {
           </Transition.Root>
 
           <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-            <div className='relative z-10 flex items-baseline justify-between pt-24 pb-6 border-b border-gray-200'>
+            <div className='relative z-10 flex md:flex-row flex-col mt-2 md:mt-0 items-baseline justify-between pt-24 pb-6 border-b border-gray-200'>
               <h1 className='text-4xl font-extrabold tracking-tight text-gray-900'>
                 New Arrivals
               </h1>
 
               <div className='flex items-center'>
-                <Menu as='div' className='relative inline-block text-left'>
+                <h1 className='text-base font-bold tracking-tight text-gray-900 px-2'>
+                  Sort
+                </h1>
+                <div className='relative inline-block text-left'>
+                  <select
+                    className='appearance-none rounded-md relative block w-40 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 green:z-10 sm:text-sm'
+                    onChange={(e) => setSort(e.target.value)}>
+                    <option value='newest'>Newest</option>
+                    <option value='asc'>Price: Low to High</option>
+                    <option value='desc'>Price: High to Low</option>
+                  </select>
+                </div>
+                {/* <Menu as='div' className='relative inline-block text-left'>
                   <div>
                     <Menu.Button className='group inline-flex justify-center text-sm font-medium text-gray-700 hover:text-gray-900'>
                       Sort
@@ -189,14 +209,14 @@ const ProductList = () => {
                       </div>
                     </Menu.Items>
                   </Transition>
-                </Menu>
+                </Menu> */}
 
-                <button
+                {/* <button
                   type='button'
                   className='p-2 -m-2 ml-5 sm:ml-7 text-gray-400 hover:text-gray-500'>
                   <span className='sr-only'>View grid</span>
                   <ViewGridIcon className='w-5 h-5' aria-hidden='true' />
-                </button>
+                </button> */}
                 <button
                   type='button'
                   className='p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden'
@@ -216,15 +236,6 @@ const ProductList = () => {
                 {/* Filters */}
                 <form className='hidden lg:block'>
                   <h3 className='sr-only'>Categories</h3>
-                  <ul
-                    role='list'
-                    className='text-sm font-medium text-gray-900 space-y-4 pb-6 border-b border-gray-200'>
-                    {subCategories.map((category) => (
-                      <li key={category.name}>
-                        <a href={category.href}>{category.name}</a>
-                      </li>
-                    ))}
-                  </ul>
 
                   {filters.map((section) => (
                     <Disclosure
@@ -259,19 +270,17 @@ const ProductList = () => {
                                 <div
                                   key={option.value}
                                   className='flex items-center'>
-                                  <input
-                                    id={`filter-${section.id}-${optionIdx}`}
-                                    name={`${section.id}[]`}
-                                    defaultValue={option.value}
-                                    type='checkbox'
-                                    defaultChecked={option.checked}
-                                    className='h-4 w-4 border-gray-300 rounded text-indigo-600 focus:ring-indigo-500'
-                                  />
-                                  <label
-                                    htmlFor={`filter-${section.id}-${optionIdx}`}
-                                    className='ml-3 text-sm text-gray-600'>
-                                    {option.label}
-                                  </label>
+                                  <ul
+                                    role='list'
+                                    className='font-normal  text-gray-900 px-2 '>
+                                    <li
+                                      id={`filter-${section.id}-${optionIdx}`}
+                                      className='text-sm'>
+                                      <Link to={`/products/${option.value}`}>
+                                        {option.label}
+                                      </Link>
+                                    </li>
+                                  </ul>
                                 </div>
                               ))}
                             </div>
@@ -285,7 +294,7 @@ const ProductList = () => {
                 {/* Product grid */}
                 <div className='lg:col-span-3'>
                   {/* Replace with your content */}
-                  <Product />
+                  <Product cat={cat} filters={filter} sort={sort} />
                   {/* /End replace */}
                 </div>
               </div>
