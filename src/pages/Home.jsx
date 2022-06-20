@@ -9,6 +9,7 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Product from '../components/Product';
+import { Link } from 'react-router-dom';
 
 const callouts = [
   {
@@ -19,6 +20,7 @@ const callouts = [
     imageAlt:
       'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
     href: '#',
+    category: 'outside',
   },
   {
     name: 'Inside',
@@ -28,6 +30,7 @@ const callouts = [
     imageAlt:
       'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
     href: '#',
+    category: 'inside',
   },
   {
     name: 'Building Materials',
@@ -36,6 +39,7 @@ const callouts = [
       'https://bambooimport.com/wp-content/uploads/2021/08/Bamboe-plaatmateriaal-header-image1-1524x762.jpg',
     imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
     href: '#',
+    category: 'building',
   },
 ];
 
@@ -186,10 +190,10 @@ const Home = () => {
                     {callout.name}
                   </p>
                   <h3 className='text-center text-sm text-gray-500'>
-                    <a href={callout.href}>
+                    <Link to={`/products/${callout.category}`}>
                       <span className='absolute inset-0' />
                       {callout.description}
-                    </a>
+                    </Link>
                   </h3>
                 </div>
               ))}
@@ -263,11 +267,11 @@ const Home = () => {
               <input
                 type='email'
                 placeholder='john@email.com'
-                className='mb-2 rounded-md border-gray-300 focus:border-neutral-400 focus:ring focus:ring-green-200'
+                className='mb-2 rounded-md border-gray-300 focus:border-green-500 focus:ring-green-500'
               />
               <button
                 type='submit'
-                className='w-24 md:ml-4 text-green-700 bg-white hover:bg-indigo-100 rounded-md h-10 transition-colors'>
+                className='w-24 md:ml-4 text-green-700 bg-white hover:bg-green-100 rounded-md h-10 transition-colors'>
                 Notify Me
               </button>
             </div>
