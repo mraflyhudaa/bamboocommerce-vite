@@ -131,9 +131,11 @@ const Home = () => {
             <main className='pt-10 z-0 overflow-y-auto mx-auto max-w-7xl px-4 sm:pt-8 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28'>
               <div className='sm:text-center lg:text-left'>
                 <h1 className='text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl'>
-                  <span className='block xl:inline'>Feel the aesthetic of</span>{' '}
-                  <span className='block text-green-600 xl:inline'>
-                    bamboo crafts
+                  <span className='block xl:inline'>
+                    Feel the aesthetic of{' '}
+                    <span className='block text-green-600 xl:inline'>
+                      bamboo crafts
+                    </span>
                   </span>
                 </h1>
                 <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0'>
@@ -155,7 +157,7 @@ const Home = () => {
             </main>
           </div>
         </div>
-        <div className='z-0 lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 mx-4 lg:m-0  '>
+        <div className='z-0 hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 mx-4 lg:m-0  '>
           <img
             className='h-56 w-full object-cover rounded-md lg:rounded-none left-10 sm:h-72 md:h-96 lg:w-full lg:h-full'
             src='https://bambooimport.com/wp-content/uploads/2021/08/Bamboo-Import-Header-Image.webp'
