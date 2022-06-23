@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
-import React, { Fragment, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Dialog, Popover, Tab, Transition } from '@headlessui/react';
 import {
   MenuIcon,
@@ -7,10 +7,10 @@ import {
   ShoppingBagIcon,
   XIcon,
 } from '@heroicons/react/outline';
-import { Link } from 'react-router-dom';
-import Cart from './Cart';
-import Input from './Input';
+import { Link, useHistory } from 'react-router-dom';
 import { navigation } from '../data';
+import { useDispatch, useSelector } from 'react-redux';
+import { calculate, removeProduct } from '../redux/cartRedux';
 
 const products = [
   {
@@ -71,6 +71,37 @@ const classNames = (...classes) => {
 const Navbar = () => {
   const [open, setOpen] = useState(false);
   const [openCart, setOpenCart] = useState(false);
+  const [isDisabled, setIsDisabled] = useState(true);
+  const cart = useSelector((state) => state.cart);
+  const items = useSelector((state) => state.cart.products);
+  let history = useHistory();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (cart.products.length > 0) {
+      setIsDisabled(false);
+      console.log(cart);
+    } else {
+      setIsDisabled(true);
+    }
+  }, [cart]);
+
+  const handleClick = () => {
+    history.push('/checkout');
+  };
+
+  const deleteItem = (id, price, quantity) => {
+    const filter = items.filter((item) => item._id !== id);
+    dispatch(removeProduct({ _id: filter, price, quantity }));
+  };
+
+  const currency = (total) => {
+    const curr = new Intl.NumberFormat('en-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    }).format(total);
+    return curr;
+  };
 
   return (
     <div className='sticky top-0 z-50 bg-white'>
@@ -271,12 +302,14 @@ const Navbar = () => {
                             <ul
                               role='list'
                               className='-my-6 divide-y divide-gray-200'>
-                              {products.map((product) => (
-                                <li key={product.id} className='flex py-6'>
+                              {cart.products.map((product) => (
+                                <li
+                                  key={`${product._id}/${product.dimension}`}
+                                  className='flex py-6'>
                                   <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
                                     <img
-                                      src={product.imageSrc}
-                                      alt={product.imageAlt}
+                                      src={product.img}
+                                      alt={product.img}
                                       className='h-full w-full object-cover object-center'
                                     />
                                   </div>
@@ -285,12 +318,16 @@ const Navbar = () => {
                                     <div>
                                       <div className='flex justify-between text-base font-medium text-gray-900'>
                                         <h3>
-                                          <a href={product.href}>
+                                          <Link to={`/product/${product._id}`}>
                                             {' '}
-                                            {product.name}{' '}
-                                          </a>
+                                            {product.title}
+                                          </Link>
                                         </h3>
-                                        <p className='ml-4'>{product.price}</p>
+                                        <p className='ml-4'>
+                                          {currency(
+                                            product.price * product.quantity
+                                          )}
+                                        </p>
                                       </div>
                                       <p className='mt-1 text-sm text-gray-500'>
                                         {product.color}
@@ -304,7 +341,17 @@ const Navbar = () => {
                                       <div className='flex'>
                                         <button
                                           type='button'
-                                          className='font-medium text-indigo-600 hover:text-indigo-500'>
+                                          onClick={() => {
+                                            dispatch(
+                                              removeProduct(
+                                                product._id,
+                                                product.price,
+                                                product.quantity
+                                              )
+                                            );
+                                            console.log(cart);
+                                          }}
+                                          className='font-medium text-green-600 hover:text-green-500'>
                                           Remove
                                         </button>
                                       </div>
@@ -320,24 +367,26 @@ const Navbar = () => {
                       <div className='border-t border-gray-200 py-6 px-4 sm:px-6'>
                         <div className='flex justify-between text-base font-medium text-gray-900'>
                           <p>Subtotal</p>
-                          <p>$262.00</p>
+                          <p>{currency(cart.total)}</p>
                         </div>
                         <p className='mt-0.5 text-sm text-gray-500'>
                           Shipping and taxes calculated at checkout.
                         </p>
                         <div className='mt-6'>
-                          <Link
-                            to={'/checkout'}
-                            className='flex items-center justify-center rounded-md border border-transparent bg-indigo-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700'>
+                          <button
+                            onClick={handleClick}
+                            disabled={isDisabled}
+                            className='w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-green-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'>
+                            {/* <Link to={'/checkout'}>Checkout</Link> */}
                             Checkout
-                          </Link>
+                          </button>
                         </div>
                         <div className='mt-6 flex justify-center text-center text-sm text-gray-500'>
                           <p>
                             or{' '}
                             <button
                               type='button'
-                              className='font-medium text-indigo-600 hover:text-indigo-500'
+                              className='font-medium text-green-600 hover:text-green-500'
                               onClick={() => setOpenCart(false)}>
                               Continue Shopping
                               <span aria-hidden='true'> &rarr;</span>
@@ -525,7 +574,7 @@ const Navbar = () => {
                       aria-hidden='true'
                     />
                     <span className='ml-2 text-sm font-normal text-gray-700 group-hover:text-gray-800'>
-                      0
+                      {cart.quantity}
                     </span>
                     <span className='sr-only'>items in cart, view bag</span>
                   </a>
