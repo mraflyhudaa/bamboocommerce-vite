@@ -2,9 +2,9 @@ import React from 'react';
 
 const Input = (props) => {
   return (
-    <div className={props.class}>
+    <div>
       <label
-        htmlFor={props.for}
+        htmlFor={props.htmlFor}
         className='block text-sm font-semibold text-black mt-4'>
         {props.label}
       </label>
