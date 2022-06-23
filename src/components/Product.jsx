@@ -14,8 +14,8 @@ const Product = (props) => {
       try {
         const res = await axios.get(
           cat
-            ? `http://167.172.72.229:3000/api/products?category=${cat}`
-            : 'http://167.172.72.229:3000/api/products/'
+            ? `http://167.172.72.229:5000/api/products?category=${cat}`
+            : 'http://167.172.72.229:5000/api/products/'
         );
         setProducts(res.data.data);
       } catch (error) {
@@ -59,7 +59,7 @@ const Product = (props) => {
         ? filteredProducts.map((product) => (
             <Link
               key={product._id}
-              to={`product/${product._id}`}
+              to={`/product/${product._id}`}
               className='group'>
               <div className='w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8'>
                 <img
@@ -77,7 +77,7 @@ const Product = (props) => {
         : products.slice(props.start, props.end).map((product) => (
             <Link
               key={product._id}
-              to={`product/${product._id}`}
+              to={`/product/${product._id}`}
               className='group'>
               <div className='w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8'>
                 <img
