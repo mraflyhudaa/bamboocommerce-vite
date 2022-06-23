@@ -57,7 +57,7 @@ const Signup = () => {
               <div className='grid grid-rows-2 space-y-0 lg:flex lg:space-y-0 lg:space-x-2'>
                 <div className='lg:flex-auto'>
                   <Input
-                    for='first-name'
+                    htmlFor='first-name'
                     label='First name'
                     id='first-name'
                     name='first-name'
@@ -68,7 +68,7 @@ const Signup = () => {
                 </div>
                 <div className='lg:flex-auto'>
                   <Input
-                    for='last-name'
+                    htmlFor='last-name'
                     label='Last name'
                     id='last-name'
                     name='last-name'
@@ -79,16 +79,16 @@ const Signup = () => {
                 </div>
               </div>
               <Input
-                for='username'
+                htmlFor='username'
                 label='Username'
                 id='username'
                 name='username'
                 type='text'
-                autocomplete='username'
+                autoComplete='username'
                 placeholder='Username'
               />
               <Input
-                for='email-address'
+                htmlFor='email-address'
                 label='Email address'
                 id='email-address'
                 name='email'
@@ -97,7 +97,7 @@ const Signup = () => {
                 placeholder='Email address'
               />
               <Input
-                for='password'
+                htmlFor='password'
                 label='Password'
                 id='password'
                 name='password'
