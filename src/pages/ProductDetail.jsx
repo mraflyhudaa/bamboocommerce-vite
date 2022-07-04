@@ -38,7 +38,7 @@ const ProductDetail = () => {
     getProduct();
   }, [id]);
 
-  const priceChange = (price1, price2) => {
+  const priceChange = (price1, price2, price3, price4) => {
     if (dimension === product.dimension[0]) {
       return new Intl.NumberFormat('en-ID', {
         style: 'currency',
@@ -49,6 +49,16 @@ const ProductDetail = () => {
         style: 'currency',
         currency: 'IDR',
       }).format(price2);
+    } else if (dimension === product.dimension[2]) {
+      return new Intl.NumberFormat('en-ID', {
+        style: 'currency',
+        currency: 'IDR',
+      }).format(price3);
+    } else if (dimension === product.dimension[3]) {
+      return new Intl.NumberFormat('en-ID', {
+        style: 'currency',
+        currency: 'IDR',
+      }).format(price4);
     } else {
       return `${new Intl.NumberFormat('en-ID', {
         style: 'currency',
@@ -56,13 +66,12 @@ const ProductDetail = () => {
       }).format(price1)} ~ ${new Intl.NumberFormat('en-ID', {
         style: 'currency',
         currency: 'IDR',
-      }).format(price2)}`;
+      }).format(price4 || price3 || price2)}`;
     }
   };
 
   const handleChangeQty = (e) => {
-    let value = e.target.value
-	
+    let value = e.target.value;
 
     setQuantity(value);
   };
@@ -71,8 +80,12 @@ const ProductDetail = () => {
     let value = e;
     if (value === product.dimension[0]) {
       setPrice(product.price[0]);
-    } else {
+    } else if (value === product.dimension[1]) {
       setPrice(product.price[1]);
+    } else if (value === product.dimension[2]) {
+      setPrice(product.price[2]);
+    } else {
+      setPrice(product.price[3]);
     }
 
     setDimension(value);
@@ -97,7 +110,7 @@ const ProductDetail = () => {
       <Navbar />
       <div className='bg-white'>
         <div className='pt-6'>
-          <nav aria-label='Breadcrumb'>
+          <nav aria-label='Breadcrumb' className='py-6 lg:py-0'>
             <ol
               role='list'
               className='max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8'>
@@ -135,7 +148,7 @@ const ProductDetail = () => {
           </nav>
 
           {/* Image gallery */}
-          <div className='mt-6 max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8'>
+          <div className=' max-w-2xl mx-auto sm:px-6 lg:max-w-7xl lg:px-8 lg:grid lg:grid-cols-3 lg:gap-x-8'>
             <div className=' aspect-w-3 aspect-h-4 rounded-lg overflow-hidden block lg:hidden'>
               <img
                 src={product.img}
@@ -160,7 +173,12 @@ const ProductDetail = () => {
                 {product.title}
               </h1>
               <p className='text-3xl text-gray-900'>
-                {priceChange(product.price[0], product.price[1])}
+                {priceChange(
+                  product.price[0],
+                  product.price[1],
+                  product.price[2],
+                  product.price[3]
+                )}
               </p>
 
               {/* Reviews */}
@@ -272,9 +290,8 @@ const ProductDetail = () => {
                     <div className='w-20 mt-4'>
                       <Input
                         type='number'
-												value={quantity}
+                        value={quantity}
                         onChange={handleChangeQty}
-												
                       />
                     </div>
                   </div>
@@ -303,33 +320,36 @@ const ProductDetail = () => {
                 <h3 className='sr-only'>Description</h3>
 
                 <div className='space-y-6'>
-                  <p className='text-base text-gray-900'>{product.desc}</p>
+                  <p className='text-base text-gray-900 font-bold mt-8'>
+                    Description<br></br>
+                    <span className='font-normal'>{product.desc}</span>
+                  </p>
                 </div>
               </div>
 
-              <div className='mt-10'>
+              {/* <div className='mt-10'>
                 <h3 className='text-sm font-medium text-gray-900'>
                   Highlights
                 </h3>
 
                 <div className='mt-4'>
                   <ul role='list' className='pl-4 list-disc text-sm space-y-2'>
-                    {/* {product.highlights.map((highlight) => (
+                    {product.highlights.map((highlight) => (
                       <li key={highlight} className='text-gray-400'>
                         <span className='text-gray-600'>{highlight}</span>
                       </li>
-                    ))} */}
+                    ))}
                   </ul>
                 </div>
-              </div>
+              </div> */}
 
-              <div className='mt-10'>
+              {/* <div className='mt-10'>
                 <h2 className='text-sm font-medium text-gray-900'>Details</h2>
 
-                {/* <div className='mt-4 space-y-6'>
+                <div className='mt-4 space-y-6'>
                   <p className='text-sm text-gray-600'>{product.details}</p>
-                </div> */}
-              </div>
+                </div>
+              </div> */}
             </div>
           </div>
         </div>
