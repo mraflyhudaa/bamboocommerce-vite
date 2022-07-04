@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-redundant-roles */
 import React, { Fragment, useEffect, useState } from 'react';
-import { Dialog, Popover, Tab, Transition } from '@headlessui/react';
+import { Dialog, Menu, Popover, Tab, Transition } from '@headlessui/react';
 import {
   MenuIcon,
   SearchIcon,
@@ -11,6 +11,8 @@ import { Link, useHistory } from 'react-router-dom';
 import { navigation } from '../data';
 import { useDispatch, useSelector } from 'react-redux';
 import { calculate, removeProduct } from '../redux/cartRedux';
+import MenuDropdown from './Menu';
+import { LogoutIcon } from '@heroicons/react/solid';
 
 const products = [
   {
@@ -74,6 +76,7 @@ const Navbar = () => {
   const [isDisabled, setIsDisabled] = useState(true);
   const cart = useSelector((state) => state.cart);
   const items = useSelector((state) => state.cart.products);
+  const user = useSelector((state) => state.user.currentUser);
   let history = useHistory();
   const dispatch = useDispatch();
 
@@ -86,8 +89,14 @@ const Navbar = () => {
     }
   }, [cart]);
 
-  const handleClick = () => {
-    history.push('/checkout');
+  const handleClick = (e) => {
+    e.preventDefault();
+    if (user) {
+      history.push('/checkout');
+    } else {
+      alert();
+      history.push('/signin');
+    }
   };
 
   const deleteItem = (id, price, quantity) => {
@@ -232,20 +241,45 @@ const Navbar = () => {
                 </div>
 
                 <div className='border-t border-gray-200 py-6 px-4 space-y-6'>
-                  <div className='flow-root'>
-                    <Link
-                      to='signin'
-                      className='-m-2 p-2 block font-normal text-gray-900'>
-                      Sign in
-                    </Link>
-                  </div>
-                  <div className='flow-root'>
-                    <Link
-                      to='register'
-                      className='-m-2 p-2 block font-normal text-gray-900'>
-                      Create account
-                    </Link>
-                  </div>
+                  {user ? (
+                    <>
+                      <div className='flow-root'>
+                        <span className='-m-2 p-2 block font-normal text-gray-900'>
+                          as {user?.email}
+                        </span>
+                      </div>
+                      <div className='flow-root'>
+                        <button
+                          // onClick={handleClick}
+                          className={
+                            'text-gray-900 group flex w-full items-center rounded-md py-2 '
+                          }>
+                          <LogoutIcon
+                            className='mr-2 h-5 w-5'
+                            aria-hidden='true'
+                          />
+                          Logout
+                        </button>
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className='flow-root'>
+                        <Link
+                          to='signin'
+                          className='-m-2 p-2 block font-normal text-gray-900'>
+                          Sign in
+                        </Link>
+                      </div>
+                      <div className='flow-root'>
+                        <Link
+                          to='signup'
+                          className='-m-2 p-2 block font-normal text-gray-900'>
+                          Create account
+                        </Link>
+                      </div>
+                    </>
+                  )}
                 </div>
               </Dialog.Panel>
             </Transition.Child>
@@ -542,27 +576,35 @@ const Navbar = () => {
               </Popover.Group>
 
               <div className='ml-auto flex items-center'>
-                <div className='hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6'>
-                  <Link
-                    to='signin'
-                    className='text-sm font-normal text-gray-700 hover:text-gray-800'>
-                    Sign in
-                  </Link>
-                  <span className='h-6 w-px bg-gray-200' aria-hidden='true' />
-                  <Link
-                    to='signup'
-                    className='text-sm font-normal text-gray-700 hover:text-gray-800'>
-                    Create account
-                  </Link>
-                </div>
-
-                {/* Search */}
-                <div className='flex lg:ml-6'>
-                  <a href='#' className='p-2 text-gray-400 hover:text-gray-500'>
-                    <span className='sr-only'>Search</span>
-                    <SearchIcon className='w-6 h-6' aria-hidden='true' />
-                  </a>
-                </div>
+                {user ? (
+                  <div className='flex lg:ml-6'>
+                    <a
+                      href='#'
+                      className='p-2 text-gray-400 hover:text-gray-500'>
+                      <span className='sr-only'>Search</span>
+                      <MenuDropdown aria-hidden='true' />
+                    </a>
+                  </div>
+                ) : (
+                  <div className='hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6'>
+                    <>
+                      <Link
+                        to='signin'
+                        className='text-sm font-normal text-gray-700 hover:text-gray-800'>
+                        Sign in
+                      </Link>
+                      <span
+                        className='h-6 w-px bg-gray-200'
+                        aria-hidden='true'
+                      />
+                      <Link
+                        to='signup'
+                        className='text-sm font-normal text-gray-700 hover:text-gray-800'>
+                        Create account
+                      </Link>
+                    </>
+                  </div>
+                )}
 
                 {/* Cart */}
                 <div className='ml-4 flow-root lg:ml-6'>
