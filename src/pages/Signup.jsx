@@ -1,9 +1,70 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { toast } from 'react-toastify';
 import Input from '../components/Input';
+import { reset } from '../redux/userRedux';
+import { register } from '../redux/apiCalls';
+import Spinner from '../components/Spinner';
 
 const Signup = () => {
+  const [formData, setFormData] = useState({
+    username: '',
+    email: '',
+    password: '',
+    password2: '',
+  });
+
+  const { username, email, password, password2 } = formData;
+
+  const history = useHistory();
+  const dispatch = useDispatch();
+
+  const { currentUser, isSuccess, isFetching, error, message } = useSelector(
+    (state) => state.user
+  );
+
+  useEffect(() => {
+    if (error) {
+      toast.error(message);
+    }
+
+    if (isSuccess || currentUser) {
+      history.push('/signin');
+      toast.success(message);
+    }
+
+    dispatch(reset());
+  }, [currentUser, isSuccess, error, message, history, dispatch]);
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (password !== password2) {
+      toast.error('Passwords do not match');
+    } else {
+      const userData = {
+        username,
+        email,
+        password,
+      };
+
+      register(dispatch, userData);
+    }
+  };
+
+  if (isFetching) {
+    return <Spinner />;
+  }
+
   return (
     <>
       {/* Navbar Section */}
@@ -51,33 +112,10 @@ const Signup = () => {
               Create your account
             </h2>
           </div>
-          <form className='mt-8 space-y-6' action='#' method='POST'>
+          <form className='mt-8 space-y-6' onSubmit={onSubmit}>
             <input type='hidden' name='remember' defaultValue='true' />
+
             <div className='rounded-md shadow-sm -space-y-px'>
-              <div className='grid grid-rows-2 space-y-0 lg:flex lg:space-y-0 lg:space-x-2'>
-                <div className='lg:flex-auto'>
-                  <Input
-                    htmlFor='first-name'
-                    label='First name'
-                    id='first-name'
-                    name='first-name'
-                    type='text'
-                    autoComplete='first-name'
-                    placeholder='First name'
-                  />
-                </div>
-                <div className='lg:flex-auto'>
-                  <Input
-                    htmlFor='last-name'
-                    label='Last name'
-                    id='last-name'
-                    name='last-name'
-                    type='text'
-                    autoComplete='last-name'
-                    placeholder='Last name'
-                  />
-                </div>
-              </div>
               <Input
                 htmlFor='username'
                 label='Username'
@@ -86,6 +124,8 @@ const Signup = () => {
                 type='text'
                 autoComplete='username'
                 placeholder='Username'
+                onChange={onChange}
+                required
               />
               <Input
                 htmlFor='email-address'
@@ -95,6 +135,8 @@ const Signup = () => {
                 type='email'
                 autoComplete='email'
                 placeholder='Email address'
+                onChange={onChange}
+                required
               />
               <Input
                 htmlFor='password'
@@ -103,8 +145,20 @@ const Signup = () => {
                 name='password'
                 type='password'
                 autoComplete='current-password'
-                green
                 placeholder='Password'
+                onChange={onChange}
+                required
+              />
+              <Input
+                htmlFor='password2'
+                label='Confirm Password'
+                id='password2'
+                name='password2'
+                type='password'
+                autoComplete='current-password'
+                placeholder='Confirm Password'
+                onChange={onChange}
+                required
               />
             </div>
 

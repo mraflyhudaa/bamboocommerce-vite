@@ -1,19 +1,66 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux/es/exports';
 import { LockClosedIcon } from '@heroicons/react/solid';
-import { Link } from 'react-router-dom';
+import { Link, useHistory } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import Input from '../components/Input';
-import { useDispatch } from 'react-redux/es/exports';
 import { login } from '../redux/apiCalls';
+import { reset } from '../redux/userRedux';
+import Spinner from '../components/Spinner';
 
 const Signin = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({
+    email: '',
+    password: '',
+  });
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    login(dispatch, { username, password });
+  const { email, password } = formData;
+
+  const dispatch = useDispatch();
+  const history = useHistory();
+
+  const { currentUser, isFetching, error, message } = useSelector(
+    (state) => state.user
+  );
+
+  useEffect(() => {
+    if (error) {
+      toast.error(message);
+    }
+
+    if (currentUser) {
+      history.push('/login');
+    }
+
+    dispatch(reset());
+  }, [currentUser, error, message, history, dispatch]);
+
+  const onChange = (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
   };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const userData = {
+      email,
+      password,
+    };
+
+    login(dispatch, userData);
+  };
+
+  // const handleClick = (e) => {
+  //   e.preventDefault();
+  //   login(dispatch, formData);
+  // };
+
+  if (isFetching) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -38,10 +85,10 @@ const Signin = () => {
                     <span className='hidden lg:flex lg:font-normal lg:text-gray-700 lg:text-sm'>
                       Don't have an account?
                     </span>
-                    <Link
-                      to='/signup'
-                      className='text-sm font-normal text-gray-700 hover:text-gray-800'>
-                      Sign up
+                    <Link to='/signup'>
+                      <button className='text-sm font-normal text-gray-600 hover:text-gray-800 cursor-pointer'>
+                        Sign up
+                      </button>
                     </Link>
                   </div>
                 </div>
@@ -62,7 +109,12 @@ const Signin = () => {
               Sign in to your account
             </h2>
           </div>
-          <form className='mt-8 space-y-6' action='#' method='POST'>
+          <form className='mt-8 space-y-6' onSubmit={onSubmit}>
+            {/* {error && (
+              <span className='flex justify-center items-center text-red-600'>
+                {message}
+              </span>
+            )} */}
             <input type='hidden' name='remember' defaultValue='true' />
             <div className='rounded-md shadow-sm -space-y-px'>
               <Input
@@ -72,7 +124,7 @@ const Signin = () => {
                 name='email'
                 type='email'
                 autoComplete='email'
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={onChange}
               />
               <Input
                 htmlFor='password'
@@ -80,7 +132,7 @@ const Signin = () => {
                 id='password'
                 name='password'
                 type='password'
-                onChange={(e) => setPassword(e.target.value)}
+                onChange={onChange}
               />
             </div>
 
@@ -111,7 +163,6 @@ const Signin = () => {
             <div>
               <button
                 type='submit'
-                onClick={handleClick}
                 className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'>
                 <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
                   <LockClosedIcon
