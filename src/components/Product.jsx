@@ -7,19 +7,26 @@ const Product = (props) => {
   const { cat, filters, sort } = props;
   const [products, setProducts] = useState([]);
   const [filteredProducts, setFilteredProducts] = useState([]);
+  const [message, setMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
   // console.log(cat, filter, sort);
 
   useEffect(() => {
     const getProducts = async () => {
+      setIsLoading(true);
       try {
         const res = await axios.get(
           cat
-            ? `http://167.172.72.229:5000/api/products?category=${cat}`
-            : 'http://167.172.72.229:5000/api/products/'
+            ? `http://167.172.72.229/api/products?category=${cat}`
+            : 'http://167.172.72.229/api/products/'
         );
         setProducts(res.data.data);
+        setMessage(res.data.message);
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setMessage();
+        setIsLoading(false);
       }
     };
     getProducts();
@@ -51,7 +58,15 @@ const Product = (props) => {
       );
     }
   }, [sort]);
-  console.log(products);
+  // console.log(products);
+
+  const currency = (total) => {
+    const curr = new Intl.NumberFormat('en-ID', {
+      style: 'currency',
+      currency: 'IDR',
+    }).format(total);
+    return curr;
+  };
 
   return (
     <div className='grid grid-cols-1 gap-y-10 sm:grid-cols-2 gap-x-6 lg:grid-cols-3 xl:grid-cols-4 xl:gap-x-8'>
@@ -63,14 +78,14 @@ const Product = (props) => {
               className='group'>
               <div className='w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8'>
                 <img
-                  src={product.imageSrc}
+                  src={product.img}
                   alt={product.imageAlt}
                   className='w-full h-full object-center object-cover group-hover:opacity-75 group-hover:scale-110 transition-all'
                 />
               </div>
               <h3 className='mt-4 text-sm text-gray-700'>{product.title}</h3>
               <p className='mt-1 text-lg font-medium text-gray-900'>
-                {product.price[0]}
+                {currency(product.price[0])}
               </p>
             </Link>
           ))
@@ -81,14 +96,14 @@ const Product = (props) => {
               className='group'>
               <div className='w-full aspect-w-1 aspect-h-1 bg-gray-200 rounded-lg overflow-hidden xl:aspect-w-7 xl:aspect-h-8'>
                 <img
-                  src={product.imageSrc}
-                  alt={product.imageAlt}
+                  src={product.img}
+                  alt={product.img}
                   className='w-full h-full object-center object-cover group-hover:opacity-75 group-hover:scale-110 transition-all'
                 />
               </div>
               <h3 className='mt-4 text-sm text-gray-700'>{product.title}</h3>
               <p className='mt-1 text-lg font-medium text-gray-900'>
-                {product.price[0]}
+                {currency(product.price[0])}
               </p>
             </Link>
           ))}
