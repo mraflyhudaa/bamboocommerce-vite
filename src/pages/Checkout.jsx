@@ -12,12 +12,19 @@ import Navbar from '../components/Navbar';
 import { publicRequest } from '../requestMethods';
 
 const Checkout = () => {
+  const [inputs, setInputs] = useState({});
   const [province, setProvince] = useState([]);
   const [midtransToken, setMidtransToken] = useState(null);
   useState;
   const history = useHistory();
-
   const cart = useSelector((state) => state.cart);
+
+  const handleChange = (e) => {
+    setInputs((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+    console.log(inputs);
+  };
 
   const currency = (total) => {
     const curr = new Intl.NumberFormat('en-ID', {
@@ -27,7 +34,8 @@ const Checkout = () => {
     return curr;
   };
 
-  const payHandler = async () => {
+  const payHandler = async (e) => {
+    e.preventDefault();
     try {
       const res = await publicRequest.post('/payment/', {});
       !midtransToken && setMidtransToken(res.data.token);
@@ -37,8 +45,12 @@ const Checkout = () => {
           /* You may add your own implementation here */
           alert('payment success!');
           setMidtransToken(null);
-          history.push('/success', { midtransData: result, products: cart });
-          console.log(result);
+          history.push('/success', {
+            midtransData: result,
+            products: cart,
+            input: inputs,
+          });
+          console.log(result, cart);
         },
         onPending: function (result) {
           /* You may add your own implementation here */
@@ -99,6 +111,7 @@ const Checkout = () => {
                         name='first-name'
                         type='text'
                         autoComplete='first-name'
+                        onChange={handleChange}
                       />
                     </div>
                     <div className='lg:flex-auto'>
@@ -109,6 +122,7 @@ const Checkout = () => {
                         name='last-name'
                         type='text'
                         autoComplete='last-name'
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -119,6 +133,7 @@ const Checkout = () => {
                     name='address'
                     type='text'
                     autoComplete='address'
+                    onChange={handleChange}
                   />
                   <Input
                     htmlFor='province'
@@ -127,6 +142,7 @@ const Checkout = () => {
                     name='province'
                     type='text'
                     autoComplete='province'
+                    onChange={handleChange}
                   />
                   <div className='grid grid-rows-2 space-y-0 space-x-0 lg:flex lg:space-y-0 lg:space-x-6'>
                     <div className='lg:flex-auto'>
@@ -137,6 +153,7 @@ const Checkout = () => {
                         name='city'
                         type='text'
                         autoComplete='city'
+                        onChange={handleChange}
                       />
                     </div>
                     <div className='lg:flex-auto'>
@@ -147,6 +164,7 @@ const Checkout = () => {
                         name='postal-code'
                         type='text'
                         autoComplete='postal-code'
+                        onChange={handleChange}
                       />
                     </div>
                   </div>
@@ -157,6 +175,7 @@ const Checkout = () => {
                     name='phone'
                     type='tel'
                     autoComplete='phone'
+                    onChange={handleChange}
                   />
                 </div>
                 <button
@@ -223,18 +242,6 @@ const Checkout = () => {
                     ))}
                     <div className='flex flex-1 flex-col justify-between pt-5'>
                       <div className='space-y-5'>
-                        {/* <div className='flex justify-between text-base font-medium text-gray-900'>
-                          <h3>Subtotal</h3>
-                          <div className='flex text-sm font-bold'>
-                            <p>$122.33</p>
-                          </div>
-                        </div>
-                        <div className='flex justify-between text-base font-medium text-gray-900'>
-                          <h3>Shipping</h3>
-                          <div className='flex text-sm font-bold'>
-                            <p>$5.33</p>
-                          </div>
-                        </div> */}
                         <div className='flex justify-between text-base font-medium text-gray-900 py-5 '>
                           <h3>Total</h3>
                           <div className='flex text-sm font-bold'>
@@ -244,7 +251,6 @@ const Checkout = () => {
                       </div>
 
                       <button
-                        type='submit'
                         onClick={payHandler}
                         className='group relative w-full md:flex justify-center py-4 px-4 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hidden'>
                         <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
