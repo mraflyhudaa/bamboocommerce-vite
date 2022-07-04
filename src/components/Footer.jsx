@@ -5,6 +5,7 @@ import {
   PhoneIcon,
   PrinterIcon,
 } from '@heroicons/react/solid';
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -101,19 +102,14 @@ const Footer = () => {
               Products
             </h6>
             <p className='mb-4'>
-              <a href='#!' className='text-gray-600'>
+              <Link to='/products/outside' className='text-gray-600'>
                 Outside
-              </a>
+              </Link>
             </p>
             <p className='mb-4'>
-              <a href='#!' className='text-gray-600'>
+              <Link to='/products/inside' className='text-gray-600'>
                 Inside
-              </a>
-            </p>
-            <p className='mb-4'>
-              <a href='#!' className='text-gray-600'>
-                Building
-              </a>
+              </Link>
             </p>
           </div>
           <div className=''>
