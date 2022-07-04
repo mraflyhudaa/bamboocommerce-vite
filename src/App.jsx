@@ -6,6 +6,8 @@ import {
   Route,
   Redirect,
 } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
 import Checkout from './pages/Checkout';
@@ -18,13 +20,13 @@ import Success from './pages/Success';
 
 const App = () => {
   const quantity = useSelector((state) => state.cart.quantity);
-  const user = false;
+  const user = useSelector((state) => state.user.currentUser);
 
   useEffect(() => {
     //change this to the script source you want to load, for example this is snap.js sandbox env
     const midtransScriptUrl = 'https://app.sandbox.midtrans.com/snap/snap.js';
     //change this according to your client-key
-    const myMidtransClientKey = import.meta.env.MIDTRANS_CLIENT_KEY;
+    const myMidtransClientKey = import.meta.env.VITE_MIDTRANS_CLIENT_KEY;
 
     let scriptTag = document.createElement('script');
     scriptTag.src = midtransScriptUrl;
@@ -39,35 +41,47 @@ const App = () => {
   }, []);
 
   return (
-    <Router>
-      <ScrollToTop />
-      <Switch>
-        <Route exact path='/'>
-          <Home />
-        </Route>
-        <Route path='/products'>
-          <ProductList />
-        </Route>
-        <Route path='/products/:category'>
-          <ProductList />
-        </Route>
-        <Route path='/product/:id'>
-          <ProductDetail />
-        </Route>
-        <Route path='/checkout'>
-          {quantity === 0 ? <Redirect to={'/'} /> : <Checkout />}
-        </Route>
-        <Route path='/success'>
-          <Success />
-        </Route>
-        <Route path='/signin'>
-          {user ? <Redirect to={'/'} /> : <Signin />}
-        </Route>
-        <Route path='/signup'>
-          {user ? <Redirect to={'/'} /> : <Signup />}
-        </Route>
-      </Switch>
-    </Router>
+    <>
+      <Router>
+        <ScrollToTop />
+        <Switch>
+          <Route exact path='/'>
+            <Home />
+          </Route>
+          <Route path='/products'>
+            <ProductList />
+          </Route>
+          <Route path='/products/:category'>
+            <ProductList />
+          </Route>
+          <Route path='/product/:id'>
+            <ProductDetail />
+          </Route>
+          <Route path='/checkout'>
+            {user ? <Checkout /> : <Redirect to={'/'} />}
+          </Route>
+          <Route path='/success'>
+            <Success />
+          </Route>
+          <Route path='/signin'>
+            {user ? <Redirect to={'/'} /> : <Signin />}
+          </Route>
+          <Route path='/signup'>
+            {user ? <Redirect to={'/'} /> : <Signup />}
+          </Route>
+        </Switch>
+      </Router>
+      <ToastContainer
+        position='bottom-right'
+        autoClose={3000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      />
+    </>
   );
 };
 

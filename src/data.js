@@ -26,22 +26,34 @@ export const navigation = {
           id: 'outdoors',
           name: 'Outdoors',
           items: [
-            { name: 'Bamboo Fences', href: '#' },
-            { name: 'Bamboo Gate Doors', href: '#' },
-            { name: 'Bamboo Mats', href: '#' },
-            { name: 'Bamboo Poles', href: '#' },
-            { name: 'Bamboo Poles Half Round', href: '#' },
-            { name: 'Bamboo Pergolas', href: '#' },
-            { name: 'Bamboo Borders', href: '#' },
-            { name: 'Bamboo Slats', href: '#' },
+            { name: 'Bamboo Fences', href: '/products/bamboo%20fence' },
+            {
+              name: 'Bamboo Gate Doors',
+              href: '/products/bamboo%20gate%20doors',
+            },
+            { name: 'Bamboo Mats', href: '/products/bamboo%20mats' },
+            { name: 'Bamboo Poles', href: '/products/bamboo%20poles' },
+            {
+              name: 'Bamboo Poles Half Round',
+              href: '/products/bamboo%20poles%half%20round',
+            },
+            { name: 'Bamboo Pergolas', href: '/products/bamboo%20pergolas' },
+            { name: 'Bamboo Borders', href: '/products/bamboo%20borders' },
+            { name: 'Bamboo Slats', href: '/products/bamboo%20slats' },
           ],
         },
         {
           id: 'indoors',
           name: 'Indoors',
           items: [
-            { name: 'Bamboo & Reed Roller Blinds', href: '#' },
-            { name: 'Bamboo Room Dividers', href: '#' },
+            {
+              name: 'Bamboo & Reed Roller Blinds',
+              href: '/products/reed%20roller%20blinds',
+            },
+            {
+              name: 'Bamboo Room Dividers',
+              href: '/products/bamboo%20room%20dividers',
+            },
           ],
         },
         // {
@@ -58,10 +70,7 @@ export const navigation = {
       ],
     },
   ],
-  pages: [
-    { name: 'Company', href: '#' },
-    { name: 'Stores', href: '#' },
-  ],
+  pages: [{ name: 'Company', href: '#' }],
 };
 
 export const products = [
