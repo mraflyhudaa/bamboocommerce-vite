@@ -118,10 +118,10 @@ const Home = () => {
     <>
       <Navbar />
       <div className='relative bg-white overflow-hidden'>
-        <div className='max-w-7xl mx-auto'>
+        <div className='max-w-7xl max-h-full  mx-auto'>
           <div className='relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32'>
             <svg
-              className='hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-white transform translate-x-1/2'
+              className='hidden lg:block absolute right-0 inset-y-0 h-[100vh] w-48 text-white transform translate-x-1/2'
               fill='currentColor'
               viewBox='0 0 100 100'
               preserveAspectRatio='none'
@@ -138,17 +138,17 @@ const Home = () => {
                     </span>
                   </span>
                 </h1>
-                <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0'>
-                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
+                <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-base lg:mx-0'>
+                  {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
                   laboriosam, hic maiores aspernatur fuga sunt magnam. Enim,
                   quae asperiores? Debitis ipsa nemo voluptas error at mollitia
-                  pariatur rem iusto! Repudiandae?
+                  pariatur rem iusto! Repudiandae? */}
                 </p>
                 <div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start'>
                   <div className='rounded-md shadow'>
                     <a
-                      href='#'
-                      className='w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-normal rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10'>
+                      href='#categories'
+                      className='w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-normal rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10'>
                       Order Now
                     </a>
                   </div>
@@ -165,7 +165,7 @@ const Home = () => {
           />
         </div>
       </div>
-      <div className='bg-white'>
+      <div id='categories' className='bg-white'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='max-w-2xl mx-auto py-6 sm:py-12 lg:py-18 lg:max-w-none'>
             <h2 className='text-2xl text-center font-bold text-gray-900'>
@@ -249,7 +249,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <div className='py-12 bg-white'>
+      {/* <div className='py-12 bg-white'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='h-[40vh] bg-green-600 rounded-lg flex items-center justify-center flex-col px-4'>
             <h1 className='text-2xl md:text-3xl font-bold text-white text-center'>
@@ -272,7 +272,7 @@ const Home = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <Footer />
     </>
   );
