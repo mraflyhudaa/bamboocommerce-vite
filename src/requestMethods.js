@@ -1,8 +1,24 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://167.172.72.229:5000/api/';
-const TOKEN =
-  'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYyN2QxNGYzOGViNmMxZjMxMDM2ZDRlYyIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY1NTcyMDY0OSwiZXhwIjoxNjU1OTc5ODQ5fQ.nqavXZOFwJ5G8mmMWGv27EilYOW0_aUJZUYpNRDAjeU';
+const BASE_URL = import.meta.env.VITE_SERVER_API;
+let TOKEN;
+if (localStorage.getItem('persist:root') != null) {
+  TOKEN = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
+    .currentUser?.token;
+} else {
+  TOKEN = '';
+}
+// const TOKEN = () => {
+//   if (
+//     JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
+//       .currentUser.token
+//   ) {
+//     return JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
+//       .currentUser.token;
+//   } else {
+//     return '';
+//   }
+// };
 
 export const publicRequest = axios.create({
   baseURL: BASE_URL,
