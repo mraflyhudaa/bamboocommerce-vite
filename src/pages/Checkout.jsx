@@ -6,24 +6,50 @@ import {
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
+import { customAlphabet } from 'nanoid';
 import Footer from '../components/Footer';
 import Input from '../components/Input';
 import Navbar from '../components/Navbar';
 import { publicRequest } from '../requestMethods';
 
 const Checkout = () => {
-  const [inputs, setInputs] = useState({});
-  const [province, setProvince] = useState([]);
+  const [formData, setFormData] = useState({
+    email: '',
+    firstName: '',
+    lastName: '',
+    address: '',
+    province: '',
+    city: '',
+    postalCode: '',
+    phone: '',
+  });
+  const [orderId, setOrderId] = useState('');
   const [midtransToken, setMidtransToken] = useState(null);
   useState;
+
+  const {
+    email,
+    firstName,
+    lastName,
+    address,
+    province,
+    city,
+    postalCode,
+    phone,
+  } = formData;
+
+  const nanoid = customAlphabet('1234567890abcdef', 10);
+
   const history = useHistory();
   const cart = useSelector((state) => state.cart);
 
-  const handleChange = (e) => {
-    setInputs((prev) => {
-      return { ...prev, [e.target.name]: e.target.value };
-    });
-    console.log(inputs);
+  const handleChange = async (e) => {
+    setFormData((prevState) => ({
+      ...prevState,
+      [e.target.name]: e.target.value,
+    }));
+    setOrderId(nanoid(6));
+    // console.log(inputs);
   };
 
   const currency = (total) => {
@@ -36,8 +62,36 @@ const Checkout = () => {
 
   const payHandler = async (e) => {
     e.preventDefault();
+    const userData = {
+      email,
+      firstName,
+      lastName,
+      address,
+      province,
+      city,
+      postalCode,
+      phone,
+    };
     try {
-      const res = await publicRequest.post('/payment/', {});
+      const res = await publicRequest.post('/payment/', {
+        nanoid: orderId,
+        total: cart.total,
+        products: cart.products.map((item) => ({
+          productId: item._id,
+          price: item.price,
+          quantity: item.quantity,
+          name: item.title,
+          category: item.categories,
+          merchant_name: 'Bamboo Craft Indonesia',
+        })),
+        first_name: userData.firstName,
+        last_name: userData.lastName,
+        email: userData.email,
+        phone: userData.phone,
+        address: userData.address,
+        city: userData.city,
+        postal_node: userData.postalCode,
+      });
       !midtransToken && setMidtransToken(res.data.token);
       // Trigger snap popup. @TODO: Replace TRANSACTION_TOKEN_HERE with your transaction token
       window.snap.pay(midtransToken ? midtransToken : res.data.token, {
@@ -48,7 +102,7 @@ const Checkout = () => {
           history.push('/success', {
             midtransData: result,
             products: cart,
-            input: inputs,
+            input: formData,
           });
           console.log(result, cart);
         },
@@ -86,7 +140,7 @@ const Checkout = () => {
           </div>
           <section aria-labelledby='carts'>
             <div className='grid grid-cols-1 md:grid-cols-2 auto-cols-max gap-y-6 gap-x-12 mb-24'>
-              <form className=' space-y-10' action='#' method='POST'>
+              <form className=' space-y-10' onSubmit={payHandler}>
                 <input type='hidden' name='remember' defaultValue='true' />
                 <div className='rounded-md shadow-sm -space-y-px'>
                   <div className='py-2'>
@@ -98,6 +152,7 @@ const Checkout = () => {
                       name='email'
                       type='email'
                       autoComplete='email'
+                      onChange={handleChange}
                     />
                     <div className='w-full border-b-[1px] my-10 border-b-gray-200'></div>
                   </div>
@@ -105,23 +160,23 @@ const Checkout = () => {
                   <div className='grid grid-rows-2 space-y-0 space-x-0 lg:flex lg:space-y-0 lg:space-x-6'>
                     <div className='lg:flex-auto'>
                       <Input
-                        htmlFor='first-name'
+                        htmlFor='firstName'
                         label='First name'
-                        id='first-name'
-                        name='first-name'
+                        id='firstName'
+                        name='firstName'
                         type='text'
-                        autoComplete='first-name'
+                        autoComplete='firstName'
                         onChange={handleChange}
                       />
                     </div>
                     <div className='lg:flex-auto'>
                       <Input
-                        htmlFor='last-name'
+                        htmlFor='lastName'
                         label='Last name'
-                        id='last-name'
-                        name='last-name'
+                        id='lastName'
+                        name='lastName'
                         type='text'
-                        autoComplete='last-name'
+                        autoComplete='lastName'
                         onChange={handleChange}
                       />
                     </div>
@@ -158,12 +213,12 @@ const Checkout = () => {
                     </div>
                     <div className='lg:flex-auto'>
                       <Input
-                        htmlFor='postal-code'
+                        htmlFor='postalCode'
                         label='Postal code'
-                        id='postal-code'
-                        name='postal-code'
+                        id='postalCode'
+                        name='postalCode'
                         type='text'
-                        autoComplete='postal-code'
+                        autoComplete='postalCode'
                         onChange={handleChange}
                       />
                     </div>
@@ -180,7 +235,6 @@ const Checkout = () => {
                 </div>
                 <button
                   type='submit'
-                  onClick={payHandler}
                   className='group relative w-full flex justify-center py-4 px-4 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 md:hidden'>
                   <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
                     <ShoppingBagIcon

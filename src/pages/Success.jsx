@@ -33,8 +33,11 @@ const Success = () => {
         const res = await userRequest.post('/orders', {
           orderId: data.order_id,
           userId: currentUser._id,
+          name: input.firstName + ' ' + input.lastName,
           products: cart.products.map((item) => ({
             productId: item._id,
+            productName: item.title,
+            dimension: item.dimension,
             quantity: item.quantity,
           })),
           amount: cart.total,
