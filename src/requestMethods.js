@@ -1,13 +1,19 @@
 import axios from 'axios';
 
 const BASE_URL = import.meta.env.VITE_SERVER_API;
-let TOKEN;
-if (localStorage.getItem('persist:root') != null) {
-  TOKEN = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
-    .currentUser?.token;
-} else {
-  TOKEN = '';
-}
+// let TOKEN;
+// if (
+//   JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user).currentUser
+//     .token
+// ) {
+//   TOKEN = JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
+//     .currentUser.token;
+// } else {
+//   TOKEN = '';
+// }
+
+const myToken = localStorage.getItem('token');
+
 // const TOKEN = () => {
 //   if (
 //     JSON.parse(JSON.parse(localStorage.getItem('persist:root')).user)
@@ -26,5 +32,5 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
   baseURL: BASE_URL,
-  headers: { token: `Bearer ${TOKEN}` },
+  headers: { token: `Bearer ${myToken}` },
 });
