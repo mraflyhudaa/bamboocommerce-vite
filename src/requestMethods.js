@@ -12,7 +12,11 @@ const BASE_URL = import.meta.env.VITE_SERVER_API;
 //   TOKEN = '';
 // }
 
-const myToken = localStorage.getItem('token');
+const user = JSON.parse(localStorage.getItem('persist:root'))?.user;
+const currentUser = user && JSON.parse(user).currentUser;
+const TOKEN = currentUser?.accessToken;
+
+// const myToken = localStorage.getItem('token');
 
 // const TOKEN = () => {
 //   if (
@@ -32,5 +36,5 @@ export const publicRequest = axios.create({
 
 export const userRequest = axios.create({
   baseURL: BASE_URL,
-  headers: { token: `Bearer ${myToken}` },
+  headers: { token: `Bearer ${TOKEN}` },
 });
