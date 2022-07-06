@@ -14,7 +14,6 @@ const MenuDropdown = () => {
   const handleClick = async (e) => {
     e.preventDefault();
     dispatch(logout(), clearCart());
-    localStorage.removeItem('token');
     history.go(0);
   };
   return (

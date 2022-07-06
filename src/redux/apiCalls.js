@@ -14,7 +14,6 @@ export const login = async (dispatch, user) => {
     .post('/auth/login', user)
     .then((res) => {
       dispatch(loginSuccess(res.data.data));
-      localStorage.setItem('token', res.data.data.token);
     })
     .catch((err) => {
       dispatch(loginFailure(err.response.data.message));

@@ -29,7 +29,7 @@ const Signin = () => {
     }
 
     if (currentUser) {
-      history.push('/login');
+      history.push('/');
     }
 
     dispatch(reset());
