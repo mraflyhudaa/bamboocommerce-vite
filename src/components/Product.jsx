@@ -17,8 +17,8 @@ const Product = (props) => {
       try {
         const res = await axios.get(
           cat
-            ? `http://167.172.72.229/api/products?category=${cat}`
-            : 'http://167.172.72.229/api/products/'
+            ? `https://bamboocraftina.online/api/products?category=${cat}`
+            : 'https://bamboocraftina.online/api/products/'
         );
         setProducts(res.data.data);
         setMessage(res.data.message);
