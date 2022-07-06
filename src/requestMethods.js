@@ -14,7 +14,7 @@ const BASE_URL = import.meta.env.VITE_SERVER_API;
 
 const user = JSON.parse(localStorage.getItem('persist:root'))?.user;
 const currentUser = user && JSON.parse(user).currentUser;
-const TOKEN = currentUser?.accessToken;
+const TOKEN = currentUser?.token;
 
 // const myToken = localStorage.getItem('token');
 
