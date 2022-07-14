@@ -4,31 +4,23 @@ import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
 import { clearCart } from '../redux/cartRedux';
 import { userRequest } from '../requestMethods';
+import Spinner from '../components/Spinner';
 
 const Success = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  //in Cart.jsx I sent data and cart. Please check that page for the changes.(in video it's only data)
-  const data = location.state?.midtransData;
+  //in Cart.jsx I sent data and cart. Please check that page for the changes.
   const cart = location.state?.products;
   const input = location.state?.input;
+  const data = location.state?.midtransData;
   const currentUser = useSelector((state) => state.user.currentUser);
   const [orderId, setOrderId] = useState(null);
   const [status, setStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    setIsLoading(true);
-    if (
-      data?.transaction_status == 'capture' ||
-      data?.transaction_status == 'settlement'
-    ) {
-      setStatus('success');
-    } else {
-      setStatus(data?.transaction_status);
-    }
-
     const createOrder = async () => {
+      setIsLoading(true);
       try {
         const res = await userRequest.post('/orders', {
           orderId: data.order_id,
@@ -42,7 +34,7 @@ const Success = () => {
           })),
           amount: cart.total,
           address: input.address,
-          status: status,
+          status: data.transaction_status,
         });
         if (res.status === 200) {
           setOrderId(data.order_id);
@@ -55,7 +47,6 @@ const Success = () => {
       }
     };
     data && createOrder();
-    console.log(status);
   }, [cart, data, currentUser, input]);
 
   const currency = (total) => {
@@ -67,7 +58,7 @@ const Success = () => {
   };
 
   if (isLoading) {
-    return <div>isLoading...</div>;
+    return <Spinner />;
   }
 
   console.log(data);
@@ -83,7 +74,8 @@ const Success = () => {
             {cart.products.map((product) => (
               <li
                 key={`${product._id}/${product.dimension}`}
-                className='flex py-6'>
+                className='flex py-6'
+              >
                 <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md '>
                   <img
                     src={product.img}
@@ -130,7 +122,7 @@ const Success = () => {
         </div>
       </div>
       <Link to={'/'} onClick={() => dispatch(clearCart())}>
-        <button className='p-10 m-20'>Go to Homepage</button>
+        <button className='p-10 m-10'>Go to Homepage</button>
       </Link>
     </div>
   );

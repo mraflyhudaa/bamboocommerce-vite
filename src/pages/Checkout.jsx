@@ -109,6 +109,11 @@ const Checkout = () => {
         onPending: function (result) {
           /* You may add your own implementation here */
           alert('wating your payment!');
+          history.push('/success', {
+            midtransData: result,
+            products: cart,
+            input: formData,
+          });
           console.log(result);
         },
         onError: function (result) {
@@ -140,7 +145,11 @@ const Checkout = () => {
           </div>
           <section aria-labelledby='carts'>
             <div className='grid grid-cols-1 md:grid-cols-2 auto-cols-max gap-y-6 gap-x-12 mb-24'>
-              <form className=' space-y-10' onSubmit={payHandler}>
+              <form
+                id='checkoutForm'
+                className=' space-y-10'
+                onSubmit={payHandler}
+              >
                 <input type='hidden' name='remember' defaultValue='true' />
                 <div className='rounded-md shadow-sm -space-y-px'>
                   <div className='py-2'>
@@ -153,6 +162,7 @@ const Checkout = () => {
                       type='email'
                       autoComplete='email'
                       onChange={handleChange}
+                      required
                     />
                     <div className='w-full border-b-[1px] my-10 border-b-gray-200'></div>
                   </div>
@@ -167,6 +177,7 @@ const Checkout = () => {
                         type='text'
                         autoComplete='firstName'
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className='lg:flex-auto'>
@@ -178,6 +189,7 @@ const Checkout = () => {
                         type='text'
                         autoComplete='lastName'
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -189,6 +201,7 @@ const Checkout = () => {
                     type='text'
                     autoComplete='address'
                     onChange={handleChange}
+                    required
                   />
                   <Input
                     htmlFor='province'
@@ -198,6 +211,7 @@ const Checkout = () => {
                     type='text'
                     autoComplete='province'
                     onChange={handleChange}
+                    required
                   />
                   <div className='grid grid-rows-2 space-y-0 space-x-0 lg:flex lg:space-y-0 lg:space-x-6'>
                     <div className='lg:flex-auto'>
@@ -209,6 +223,7 @@ const Checkout = () => {
                         type='text'
                         autoComplete='city'
                         onChange={handleChange}
+                        required
                       />
                     </div>
                     <div className='lg:flex-auto'>
@@ -220,6 +235,7 @@ const Checkout = () => {
                         type='text'
                         autoComplete='postalCode'
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
@@ -231,11 +247,13 @@ const Checkout = () => {
                     type='tel'
                     autoComplete='phone'
                     onChange={handleChange}
+                    required
                   />
                 </div>
                 <button
                   type='submit'
-                  className='group relative w-full flex justify-center py-4 px-4 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 md:hidden'>
+                  className='group relative w-full flex justify-center py-4 px-4 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 md:hidden'
+                >
                   <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
                     <ShoppingBagIcon
                       className='h-5 w-5 text-green-500 group-hover:text-green-400'
@@ -252,7 +270,8 @@ const Checkout = () => {
                     {cart.products.map((product) => (
                       <li
                         key={`${product._id}/${product.dimension}`}
-                        className='flex py-6'>
+                        className='flex py-6'
+                      >
                         <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md '>
                           <img
                             src={product.img}
@@ -273,7 +292,8 @@ const Checkout = () => {
                               <div className='flex text-sm'>
                                 <button
                                   type='button'
-                                  className='font-medium text-green-600 hover:text-green-500'>
+                                  className='font-medium text-green-600 hover:text-green-500'
+                                >
                                   Remove
                                 </button>
                               </div>
@@ -305,8 +325,10 @@ const Checkout = () => {
                       </div>
 
                       <button
-                        onClick={payHandler}
-                        className='group relative w-full md:flex justify-center py-4 px-4 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hidden'>
+                        type='submit'
+                        form='checkoutForm'
+                        className='group relative w-full md:flex justify-center py-4 px-4 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 hidden'
+                      >
                         <span className='absolute left-0 inset-y-0 flex items-center pl-3'>
                           <ShoppingCartIcon
                             className='h-5 w-5 text-green-500 group-hover:text-green-400'

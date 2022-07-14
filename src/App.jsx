@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
 import ScrollToTop from './components/ScrollToTop';
 import Checkout from './pages/Checkout';
+import Company from './pages/Company';
 import Home from './pages/Home';
 import ProductDetail from './pages/ProductDetail';
 import ProductList from './pages/ProductList';
@@ -69,6 +70,9 @@ const App = () => {
           <Route path='/signup'>
             {user ? <Redirect to={'/'} /> : <Signup />}
           </Route>
+          {/* <Route path='/company'>
+            <Company />
+          </Route> */}
         </Switch>
       </Router>
       <ToastContainer

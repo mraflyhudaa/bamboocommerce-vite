@@ -124,7 +124,8 @@ const Navbar = () => {
             enterTo='opacity-100'
             leave='transition-opacity ease-linear duration-300'
             leaveFrom='opacity-100'
-            leaveTo='opacity-0'>
+            leaveTo='opacity-0'
+          >
             <div className='fixed inset-0 bg-black bg-opacity-25' />
           </Transition.Child>
 
@@ -136,13 +137,15 @@ const Navbar = () => {
               enterTo='translate-x-0'
               leave='transition ease-in-out duration-300 transform'
               leaveFrom='translate-x-0'
-              leaveTo='-translate-x-full'>
+              leaveTo='-translate-x-full'
+            >
               <Dialog.Panel className='relative max-w-xs w-full bg-white shadow-xl pb-12 flex flex-col overflow-y-auto'>
                 <div className='px-4 pt-5 pb-2 flex'>
                   <button
                     type='button'
                     className='-m-2 p-2 rounded-md inline-flex items-center justify-center text-gray-400'
-                    onClick={() => setOpen(false)}>
+                    onClick={() => setOpen(false)}
+                  >
                     <span className='sr-only'>Close menu</span>
                     <XIcon className='h-6 w-6' aria-hidden='true' />
                   </button>
@@ -162,7 +165,8 @@ const Navbar = () => {
                                 : 'text-gray-900 border-transparent',
                               'flex-1 whitespace-nowrap py-4 px-1 border-b-2 text-base font-normal'
                             )
-                          }>
+                          }
+                        >
                           {category.name}
                         </Tab>
                       ))}
@@ -172,50 +176,27 @@ const Navbar = () => {
                     {navigation.categories.map((category) => (
                       <Tab.Panel
                         key={category.name}
-                        className='pt-10 pb-8 px-4 space-y-10'>
-                        <div className='grid grid-cols-2 gap-x-4'>
-                          {category.featured.map((item) => (
-                            <div
-                              key={item.name}
-                              className='group relative text-sm'>
-                              <div className='aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75'>
-                                <img
-                                  src={item.imageSrc}
-                                  alt={item.imageAlt}
-                                  className='object-center object-cover'
-                                />
-                              </div>
-                              <a
-                                href={item.href}
-                                className='mt-6 block font-normal text-gray-900'>
-                                <span
-                                  className='absolute z-50 inset-0'
-                                  aria-hidden='true'
-                                />
-                                {item.name}
-                              </a>
-                              <p aria-hidden='true' className='mt-1'>
-                                Shop now
-                              </p>
-                            </div>
-                          ))}
-                        </div>
+                        className='pt-10 pb-8 px-4 space-y-10'
+                      >
                         {category.sections.map((section) => (
                           <div key={section.name}>
                             <p
                               id={`${category.id}-${section.id}-heading-mobile`}
-                              className='font-normal text-green-500'>
+                              className='font-normal text-green-500'
+                            >
                               {section.name}
                             </p>
                             <ul
                               role='list'
                               aria-labelledby={`${category.id}-${section.id}-heading-mobile`}
-                              className='mt-6 flex flex-col space-y-6'>
+                              className='mt-6 flex flex-col space-y-6'
+                            >
                               {section.items.map((item) => (
                                 <li key={item.name} className='flow-root'>
                                   <a
                                     href={item.href}
-                                    className='-m-2 p-2 block text-gray-500'>
+                                    className='-m-2 p-2 block text-gray-500'
+                                  >
                                     {item.name}
                                   </a>
                                 </li>
@@ -228,22 +209,23 @@ const Navbar = () => {
                   </Tab.Panels>
                 </Tab.Group>
 
-                <div className='border-t border-gray-200 py-6 px-4 space-y-6'>
+                {/* <div className='border-t border-gray-200 py-6 px-4 space-y-6'>
                   {navigation.pages.map((page) => (
                     <div key={page.name} className='flow-root'>
                       <Link
                         to={page.href}
-                        className='-m-2 p-2 block font-normal text-gray-900'>
+                        className='-m-2 p-2 block font-normal text-gray-900'
+                      >
                         {page.name}
                       </Link>
                     </div>
                   ))}
-                </div>
+                </div> */}
 
                 <div className='border-t border-gray-200 py-6 px-4 space-y-6'>
                   {user ? (
                     <>
-                      <div className='flow-root'>
+                      <div className='flow-root '>
                         <span className='-m-2 p-2 block font-normal text-gray-900'>
                           as {user?.email}
                         </span>
@@ -253,7 +235,8 @@ const Navbar = () => {
                           // onClick={handleClick}
                           className={
                             'text-gray-900 group flex w-full items-center rounded-md py-2 '
-                          }>
+                          }
+                        >
                           <LogoutIcon
                             className='mr-2 h-5 w-5'
                             aria-hidden='true'
@@ -267,14 +250,16 @@ const Navbar = () => {
                       <div className='flow-root'>
                         <Link
                           to='signin'
-                          className='-m-2 p-2 block font-normal text-gray-900'>
+                          className='-m-2 p-2 block font-normal text-gray-900'
+                        >
                           Sign in
                         </Link>
                       </div>
                       <div className='flow-root'>
                         <Link
                           to='signup'
-                          className='-m-2 p-2 block font-normal text-gray-900'>
+                          className='-m-2 p-2 block font-normal text-gray-900'
+                        >
                           Create account
                         </Link>
                       </div>
@@ -297,7 +282,8 @@ const Navbar = () => {
             enterTo='opacity-100'
             leave='ease-in-out duration-500'
             leaveFrom='opacity-100'
-            leaveTo='opacity-0'>
+            leaveTo='opacity-0'
+          >
             <div className='fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity' />
           </Transition.Child>
 
@@ -311,7 +297,8 @@ const Navbar = () => {
                   enterTo='translate-x-0'
                   leave='transform transition ease-in-out duration-500 sm:duration-700'
                   leaveFrom='translate-x-0'
-                  leaveTo='translate-x-full'>
+                  leaveTo='translate-x-full'
+                >
                   <Dialog.Panel className='pointer-events-auto w-screen max-w-md'>
                     <div className='flex h-full flex-col overflow-y-scroll bg-white shadow-xl'>
                       <div className='flex-1 overflow-y-auto py-6 px-4 sm:px-6'>
@@ -324,7 +311,8 @@ const Navbar = () => {
                             <button
                               type='button'
                               className='-m-2 p-2 text-gray-400 hover:text-gray-500'
-                              onClick={() => setOpenCart(false)}>
+                              onClick={() => setOpenCart(false)}
+                            >
                               <span className='sr-only'>Close panel</span>
                               <XIcon className='h-6 w-6' aria-hidden='true' />
                             </button>
@@ -335,11 +323,13 @@ const Navbar = () => {
                           <div className='flow-root'>
                             <ul
                               role='list'
-                              className='-my-6 divide-y divide-gray-200'>
+                              className='-my-6 divide-y divide-gray-200'
+                            >
                               {cart.products.map((product) => (
                                 <li
                                   key={`${product._id}/${product.dimension}`}
-                                  className='flex py-6'>
+                                  className='flex py-6'
+                                >
                                   <div className='h-24 w-24 flex-shrink-0 overflow-hidden rounded-md border border-gray-200'>
                                     <img
                                       src={product.img}
@@ -385,7 +375,8 @@ const Navbar = () => {
                                             );
                                             console.log(cart);
                                           }}
-                                          className='font-medium text-green-600 hover:text-green-500'>
+                                          className='font-medium text-green-600 hover:text-green-500'
+                                        >
                                           Remove
                                         </button>
                                       </div>
@@ -410,7 +401,8 @@ const Navbar = () => {
                           <button
                             onClick={handleClick}
                             disabled={isDisabled}
-                            className='w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-green-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'>
+                            className='w-full items-center justify-center rounded-md border border-transparent bg-green-600 px-6 py-3 text-base font-medium text-white shadow-sm hover:bg-green-700 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                          >
                             {/* <Link to={'/checkout'}>Checkout</Link> */}
                             Checkout
                           </button>
@@ -421,7 +413,8 @@ const Navbar = () => {
                             <button
                               type='button'
                               className='font-medium text-green-600 hover:text-green-500'
-                              onClick={() => setOpenCart(false)}>
+                              onClick={() => setOpenCart(false)}
+                            >
                               Continue Shopping
                               <span aria-hidden='true'> &rarr;</span>
                             </button>
@@ -444,7 +437,8 @@ const Navbar = () => {
               <button
                 type='button'
                 className='bg-white p-2 rounded-md text-gray-400 lg:hidden'
-                onClick={() => setOpen(true)}>
+                onClick={() => setOpen(true)}
+              >
                 <span className='sr-only'>Open menu</span>
                 <MenuIcon className='h-6 w-6' aria-hidden='true' />
               </button>
@@ -475,7 +469,8 @@ const Navbar = () => {
                                   ? 'border-green-600 text-green-600'
                                   : 'border-transparent text-gray-700 hover:text-gray-800',
                                 'relative z-10 flex items-center transition-colors ease-out duration-200 text-sm font-normal border-b-2 -mb-px pt-px'
-                              )}>
+                              )}
+                            >
                               {category.name}
                             </Popover.Button>
                           </div>
@@ -487,7 +482,8 @@ const Navbar = () => {
                             enterTo='opacity-100'
                             leave='transition ease-in duration-150'
                             leaveFrom='opacity-100'
-                            leaveTo='opacity-0'>
+                            leaveTo='opacity-0'
+                          >
                             <Popover.Panel className='absolute top-full inset-x-0 text-sm text-gray-500'>
                               {/* Presentational element used to render the bottom shadow, if we put the shadow on the actual panel it pokes out the top, so we use this shorter element to hide the top of the shadow */}
                               <div
@@ -498,54 +494,29 @@ const Navbar = () => {
                               <div className='relative bg-white'>
                                 <div className='max-w-7xl mx-auto px-8'>
                                   <div className='grid grid-cols-2 gap-y-10 gap-x-8 py-16'>
-                                    <div className='col-start-2 grid grid-cols-2 gap-x-8'>
-                                      {category.featured.map((item) => (
-                                        <div
-                                          key={item.name}
-                                          className='group relative text-base sm:text-sm'>
-                                          <div className='aspect-w-1 aspect-h-1 rounded-lg bg-gray-100 overflow-hidden group-hover:opacity-75'>
-                                            <img
-                                              src={item.imageSrc}
-                                              alt={item.imageAlt}
-                                              className='object-center object-cover'
-                                            />
-                                          </div>
-                                          <a
-                                            href={item.href}
-                                            className='mt-6 block font-normal text-gray-900'>
-                                            <span
-                                              className='absolute z-10 inset-0'
-                                              aria-hidden='true'
-                                            />
-                                            {item.name}
-                                          </a>
-                                          <p
-                                            aria-hidden='true'
-                                            className='mt-1'>
-                                            Shop now
-                                          </p>
-                                        </div>
-                                      ))}
-                                    </div>
                                     <div className='row-start-1 grid grid-cols-3 gap-y-10 gap-x-8 text-sm'>
                                       {category.sections.map((section) => (
                                         <div key={section.name}>
                                           <p
                                             id={`${section.name}-heading`}
-                                            className='font-normal text-gray-900'>
+                                            className='font-normal text-gray-900'
+                                          >
                                             {section.name}
                                           </p>
                                           <ul
                                             role='list'
                                             aria-labelledby={`${section.name}-heading`}
-                                            className='mt-6 space-y-6 sm:mt-4 sm:space-y-4'>
+                                            className='mt-6 space-y-6 sm:mt-4 sm:space-y-4'
+                                          >
                                             {section.items.map((item) => (
                                               <li
                                                 key={item.name}
-                                                className='flex'>
+                                                className='flex'
+                                              >
                                                 <a
                                                   href={item.href}
-                                                  className='hover:text-gray-800'>
+                                                  className='hover:text-gray-800'
+                                                >
                                                   {item.name}
                                                 </a>
                                               </li>
@@ -564,23 +535,25 @@ const Navbar = () => {
                     </Popover>
                   ))}
 
-                  {navigation.pages.map((page) => (
+                  {/* {navigation.pages.map((page) => (
                     <a
                       key={page.name}
                       href={page.href}
-                      className='flex items-center text-sm font-normal text-gray-700 hover:text-gray-800'>
+                      className='flex items-center text-sm font-normal text-gray-700 hover:text-gray-800'
+                    >
                       {page.name}
                     </a>
-                  ))}
+                  ))} */}
                 </div>
               </Popover.Group>
 
               <div className='ml-auto flex items-center'>
                 {user ? (
-                  <div className='flex lg:ml-6'>
+                  <div className='lg:flex hidden lg:ml-6 order-last '>
                     <a
                       href='#'
-                      className='p-2 text-gray-400 hover:text-gray-500'>
+                      className='p-2 text-gray-400 hover:text-gray-500'
+                    >
                       <span className='sr-only'>Search</span>
                       <MenuDropdown aria-hidden='true' />
                     </a>
@@ -590,7 +563,8 @@ const Navbar = () => {
                     <>
                       <Link
                         to='signin'
-                        className='text-sm font-normal text-gray-700 hover:text-gray-800'>
+                        className='text-sm font-normal text-gray-700 hover:text-gray-800'
+                      >
                         Sign in
                       </Link>
                       <span
@@ -599,7 +573,8 @@ const Navbar = () => {
                       />
                       <Link
                         to='signup'
-                        className='text-sm font-normal text-gray-700 hover:text-gray-800'>
+                        className='text-sm font-normal text-gray-700 hover:text-gray-800'
+                      >
                         Create account
                       </Link>
                     </>
@@ -610,7 +585,8 @@ const Navbar = () => {
                 <div className='ml-4 flow-root lg:ml-6'>
                   <a
                     onClick={() => setOpenCart(true)}
-                    className='group -m-2 p-2 flex items-center'>
+                    className='group -m-2 p-2 flex items-center'
+                  >
                     <ShoppingBagIcon
                       className='flex-shrink-0 h-6 w-6 text-gray-400 group-hover:text-gray-500'
                       aria-hidden='true'

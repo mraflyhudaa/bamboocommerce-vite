@@ -26,7 +26,7 @@ export const navigation = {
           id: 'outdoors',
           name: 'Outdoors',
           items: [
-            { name: 'Bamboo Fences', href: '/products/bamboo%20fence' },
+            { name: 'Bamboo Fences', href: '/products/bamboo%20fences' },
             {
               name: 'Bamboo Gate Doors',
               href: '/products/bamboo%20gate%20doors',
@@ -35,7 +35,7 @@ export const navigation = {
             { name: 'Bamboo Poles', href: '/products/bamboo%20poles' },
             {
               name: 'Bamboo Poles Half Round',
-              href: '/products/bamboo%20poles%half%20round',
+              href: '/products/bamboo%20poles%20half%20round',
             },
             { name: 'Bamboo Pergolas', href: '/products/bamboo%20pergolas' },
             { name: 'Bamboo Borders', href: '/products/bamboo%20borders' },
@@ -48,11 +48,11 @@ export const navigation = {
           items: [
             {
               name: 'Bamboo & Reed Roller Blinds',
-              href: '/products/reed%20roller%20blinds',
+              href: '/products/roller%20blinds',
             },
             {
               name: 'Bamboo Room Dividers',
-              href: '/products/bamboo%20room%20dividers',
+              href: '/products/room%20dividers',
             },
           ],
         },
@@ -175,6 +175,18 @@ export const subCategories = [
 
 export const filters = [
   {
+    id: 'products',
+    name: 'All Products',
+    options: [
+      {
+        value: '',
+        label: 'All Products',
+        checked: false,
+        href: '#'
+      }
+    ]
+  },
+  {
     id: 'outside',
     name: 'Outside',
     options: [
@@ -185,7 +197,7 @@ export const filters = [
         href: '#',
       },
       {
-        value: 'bamboo fence',
+        value: 'bamboo fences',
         label: 'Bamboo Fence',
         checked: false,
         href: '#',
@@ -234,13 +246,19 @@ export const filters = [
     name: 'Inside',
     options: [
       {
-        value: 'bamboo and red roller blinds',
+        value: 'inside',
+        label: 'All Products',
+        checked: false,
+        href: '#',
+      },
+      {
+        value: 'roller blinds',
         label: 'Bamboo & Reed Roller Blinds',
         checked: false,
         href: '#',
       },
       {
-        value: 'bamboo room dividers',
+        value: 'room dividers',
         label: 'Bamboo Room Dividers',
         checked: false,
         href: '#',

@@ -100,7 +100,8 @@ const ProductDetail = () => {
       <div className='bg-white w-[100vh] h-[100vh]'>
         <svg
           className='animate-spin h-5 w-5 mr-3 ...'
-          viewBox='0 0 24 24'></svg>
+          viewBox='0 0 24 24'
+        ></svg>
       </div>
     );
   }
@@ -113,13 +114,15 @@ const ProductDetail = () => {
           <nav aria-label='Breadcrumb' className='py-6 lg:py-0'>
             <ol
               role='list'
-              className='max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8'>
+              className='max-w-2xl mx-auto px-4 flex items-center space-x-2 sm:px-6 lg:max-w-7xl lg:px-8'
+            >
               {product.categories.map((category) => (
                 <li key={category}>
                   <div className='flex items-center'>
                     <Link
                       to={`/products/${category}`}
-                      className='mr-2 text-sm font-medium text-gray-900'>
+                      className='mr-2 text-sm font-medium text-gray-900'
+                    >
                       {category.charAt(0).toUpperCase() + category.slice(1)}
                     </Link>
                     <svg
@@ -129,7 +132,8 @@ const ProductDetail = () => {
                       fill='currentColor'
                       xmlns='http://www.w3.org/2000/svg'
                       aria-hidden='true'
-                      className='w-4 h-5 text-gray-300'>
+                      className='w-4 h-5 text-gray-300'
+                    >
                       <path d='M5.697 4.34L8.98 16.532h1.327L7.025 4.341H5.697z' />
                     </svg>
                   </div>
@@ -139,7 +143,8 @@ const ProductDetail = () => {
                 <Link
                   to={`/product/${product._id}`}
                   aria-current='page'
-                  className='font-medium text-gray-500 hover:text-gray-600'>
+                  className='font-medium text-gray-500 hover:text-gray-600'
+                >
                   {product.title.charAt(0).toUpperCase() +
                     product.title.slice(1)}
                 </Link>
@@ -213,6 +218,13 @@ const ProductDetail = () => {
                 <div className='mt-10'>
                   <div className='flex items-center justify-between'>
                     <h3 className='text-sm text-gray-900 font-medium'>Size</h3>
+                    {product.inStock ? (
+                      ''
+                    ) : (
+                      <h3 className='text-sm text-red-600 font-medium'>
+                        Out of stock
+                      </h3>
+                    )}
                     {/* <a
                       href='#'
                       className='text-sm font-medium text-indigo-600 hover:text-indigo-500'>
@@ -223,7 +235,8 @@ const ProductDetail = () => {
                   <RadioGroup
                     value={dimension}
                     onChange={handleChangeDimension}
-                    className='mt-4'>
+                    className='mt-4'
+                  >
                     <RadioGroup.Label className='sr-only'>
                       Choose a size
                     </RadioGroup.Label>
@@ -232,22 +245,23 @@ const ProductDetail = () => {
                         <RadioGroup.Option
                           key={size}
                           value={size}
-                          // disabled={!size.inStock}
+                          disabled={!product.inStock}
                           className={({ active }) =>
                             classNames(
-                              size
+                              product.inStock
                                 ? 'bg-white shadow-sm text-gray-900 cursor-pointer'
                                 : 'bg-gray-50 text-gray-200 cursor-not-allowed',
                               active ? 'ring-2 ring-green-500' : '',
                               'group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1 sm:py-6'
                             )
-                          }>
+                          }
+                        >
                           {({ active, checked }) => (
                             <>
                               <RadioGroup.Label as='span'>
                                 {size}
                               </RadioGroup.Label>
-                              {size ? (
+                              {product.inStock ? (
                                 <span
                                   className={classNames(
                                     active ? 'border' : 'border-2',
@@ -261,12 +275,14 @@ const ProductDetail = () => {
                               ) : (
                                 <span
                                   aria-hidden='true'
-                                  className='absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none'>
+                                  className='absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none'
+                                >
                                   <svg
                                     className='absolute inset-0 w-full h-full text-gray-200 stroke-2'
                                     viewBox='0 0 100 100'
                                     preserveAspectRatio='none'
-                                    stroke='currentColor'>
+                                    stroke='currentColor'
+                                  >
                                     <line
                                       x1={0}
                                       y1={100}
@@ -299,7 +315,9 @@ const ProductDetail = () => {
 
                 <button
                   onClick={handleClick}
-                  className='mt-10 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500'>
+                  disabled={!product.inStock}
+                  className='mt-10 w-full bg-green-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:bg-gray-100 disabled:text-gray-400 disabled:cursor-not-allowed'
+                >
                   Add to bag
                 </button>
               </div>

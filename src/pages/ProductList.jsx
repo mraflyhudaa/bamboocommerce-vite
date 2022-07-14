@@ -34,7 +34,8 @@ const ProductList = () => {
             <Dialog
               as='div'
               className='relative z-50 lg:hidden'
-              onClose={setMobileFiltersOpen}>
+              onClose={setMobileFiltersOpen}
+            >
               <Transition.Child
                 as={Fragment}
                 enter='transition-opacity ease-linear duration-300'
@@ -42,7 +43,8 @@ const ProductList = () => {
                 enterTo='opacity-100'
                 leave='transition-opacity ease-linear duration-300'
                 leaveFrom='opacity-100'
-                leaveTo='opacity-0'>
+                leaveTo='opacity-0'
+              >
                 <div className='fixed inset-0 bg-black bg-opacity-25' />
               </Transition.Child>
 
@@ -54,7 +56,8 @@ const ProductList = () => {
                   enterTo='translate-x-0'
                   leave='transition ease-in-out duration-300 transform'
                   leaveFrom='translate-x-0'
-                  leaveTo='translate-x-full'>
+                  leaveTo='translate-x-full'
+                >
                   <Dialog.Panel className='ml-auto relative max-w-xs w-full h-full bg-white shadow-xl py-4 pb-12 flex flex-col overflow-y-auto'>
                     <div className='px-4 flex items-center justify-between'>
                       <h2 className='text-lg font-medium text-gray-900'>
@@ -63,7 +66,8 @@ const ProductList = () => {
                       <button
                         type='button'
                         className='-mr-2 w-10 h-10 bg-white p-2 rounded-md flex items-center justify-center text-gray-400'
-                        onClick={() => setMobileFiltersOpen(false)}>
+                        onClick={() => setMobileFiltersOpen(false)}
+                      >
                         <span className='sr-only'>Close menu</span>
                         <XIcon className='h-6 w-6' aria-hidden='true' />
                       </button>
@@ -77,7 +81,8 @@ const ProductList = () => {
                         <Disclosure
                           as='div'
                           key={section.id}
-                          className='border-t border-gray-200 px-4 py-6'>
+                          className='border-t border-gray-200 px-4 py-6'
+                        >
                           {({ open }) => (
                             <>
                               <h3 className='-mx-2 -my-3 flow-root'>
@@ -105,15 +110,19 @@ const ProductList = () => {
                                   {section.options.map((option, optionIdx) => (
                                     <div
                                       key={option.value}
-                                      className='flex items-center'>
+                                      className='flex items-center'
+                                    >
                                       <ul
                                         role='list'
-                                        className='font-medium text-gray-900 px-2 py-3'>
+                                        className='font-medium text-gray-900 px-2 py-3'
+                                      >
                                         <li
                                           id={`filter-${section.id}-${optionIdx}`}
-                                          className='text-sm'>
+                                          className='text-sm'
+                                        >
                                           <Link
-                                            to={`/products/${option.value}`}>
+                                            to={`/products/${option.value}`}
+                                          >
                                             {option.label}
                                           </Link>
                                         </li>
@@ -149,7 +158,7 @@ const ProductList = () => {
           <main className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
             <div className='relative z-10 flex md:flex-row flex-col mt-2 md:mt-0 items-baseline justify-between pt-24 pb-6 border-b border-gray-200'>
               <h1 className='text-4xl font-extrabold tracking-tight text-gray-900'>
-                New Arrivals
+                Products
               </h1>
 
               <div className='flex items-center'>
@@ -159,7 +168,8 @@ const ProductList = () => {
                 <div className='relative inline-block text-left'>
                   <select
                     className='appearance-none rounded-md relative block w-40 px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-green-500 focus:border-green-500 green:z-10 sm:text-sm'
-                    onChange={(e) => setSort(e.target.value)}>
+                    onChange={(e) => setSort(e.target.value)}
+                  >
                     <option value='newest'>Newest</option>
                     <option value='asc'>Price: Low to High</option>
                     <option value='desc'>Price: High to Low</option>
@@ -217,7 +227,8 @@ const ProductList = () => {
                 <button
                   type='button'
                   className='p-2 -m-2 ml-4 sm:ml-6 text-gray-400 hover:text-gray-500 lg:hidden'
-                  onClick={() => setMobileFiltersOpen(true)}>
+                  onClick={() => setMobileFiltersOpen(true)}
+                >
                   <span className='sr-only'>Filters</span>
                   <FilterIcon className='w-5 h-5' aria-hidden='true' />
                 </button>
@@ -238,7 +249,8 @@ const ProductList = () => {
                     <Disclosure
                       as='div'
                       key={section.id}
-                      className='border-b border-gray-200 py-6'>
+                      className='border-b border-gray-200 py-6'
+                    >
                       {({ open }) => (
                         <>
                           <h3 className='-my-3 flow-root'>
@@ -266,13 +278,16 @@ const ProductList = () => {
                               {section.options.map((option, optionIdx) => (
                                 <div
                                   key={option.value}
-                                  className='flex items-center'>
+                                  className='flex items-center'
+                                >
                                   <ul
                                     role='list'
-                                    className='font-normal  text-gray-900 px-2 '>
+                                    className='font-normal  text-gray-900 px-2 '
+                                  >
                                     <li
                                       id={`filter-${section.id}-${optionIdx}`}
-                                      className='text-sm'>
+                                      className='text-sm'
+                                    >
                                       <Link to={`/products/${option.value}`}>
                                         {option.label}
                                       </Link>
