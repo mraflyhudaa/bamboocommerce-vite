@@ -99,6 +99,19 @@ const Navbar = () => {
     }
   };
 
+  const onDelete = (id, price, quantity) => {
+    const confirmBox = window.confirm(
+      'Do you really want to remove this product?'
+    );
+    if (confirmBox == true) {
+      dispatch(removeProduct(id, price, quantity));
+
+      if (isSuccess) {
+        toast.success(message);
+      }
+    }
+  };
+
   const deleteItem = (id, price, quantity) => {
     const filter = items.filter((item) => item._id !== id);
     dispatch(removeProduct({ _id: filter, price, quantity }));
@@ -365,16 +378,13 @@ const Navbar = () => {
                                       <div className='flex'>
                                         <button
                                           type='button'
-                                          onClick={() => {
-                                            dispatch(
-                                              removeProduct(
-                                                product._id,
-                                                product.price,
-                                                product.quantity
-                                              )
-                                            );
-                                            console.log(cart);
-                                          }}
+                                          onClick={() =>
+                                            onDelete(
+                                              product._id,
+                                              product.price,
+                                              product.quantity
+                                            )
+                                          }
                                           className='font-medium text-green-600 hover:text-green-500'
                                         >
                                           Remove

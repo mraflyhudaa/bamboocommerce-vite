@@ -4,13 +4,14 @@ import {
   ShoppingCartIcon,
 } from '@heroicons/react/solid';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link, useHistory } from 'react-router-dom';
 import { customAlphabet } from 'nanoid';
 import Footer from '../components/Footer';
 import Input from '../components/Input';
 import Navbar from '../components/Navbar';
 import { publicRequest } from '../requestMethods';
+import { removeProduct } from '../redux/cartRedux';
 
 const Checkout = () => {
   const [formData, setFormData] = useState({
@@ -41,6 +42,8 @@ const Checkout = () => {
   const nanoid = customAlphabet('1234567890abcdef', 10);
 
   const history = useHistory();
+  const dispatch = useDispatch();
+
   const cart = useSelector((state) => state.cart);
 
   const handleChange = async (e) => {
@@ -52,12 +55,35 @@ const Checkout = () => {
     // console.log(inputs);
   };
 
+  useEffect(() => {
+    if (cart.quantity == 0) {
+      history.push('/');
+    }
+  }, [cart]);
+
   const currency = (total) => {
     const curr = new Intl.NumberFormat('en-ID', {
       style: 'currency',
       currency: 'IDR',
     }).format(total);
     return curr;
+  };
+
+  const onDelete = (id, price, quantity) => {
+    const confirmBox = window.confirm(
+      'Do you really want to remove this product?'
+    );
+    if (confirmBox == true) {
+      dispatch(removeProduct(id, price, quantity));
+
+      // if (cart.quantity == 0) {
+      //   history.push('/');
+      // }
+
+      if (isSuccess) {
+        toast.success(message);
+      }
+    }
   };
 
   const payHandler = async (e) => {
@@ -292,6 +318,13 @@ const Checkout = () => {
                               <div className='flex text-sm'>
                                 <button
                                   type='button'
+                                  onClick={() =>
+                                    onDelete(
+                                      product._id,
+                                      product.price,
+                                      product.quantity
+                                    )
+                                  }
                                   className='font-medium text-green-600 hover:text-green-500'
                                 >
                                   Remove
