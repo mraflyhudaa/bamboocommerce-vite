@@ -19,6 +19,8 @@ const ProductDetail = () => {
   const location = useLocation();
   const id = location.pathname.split('/')[2];
   const [product, setProduct] = useState([]);
+  const [shipping, setShipping] = useState('');
+  const [shippingPrice, setshippingPrice] = useState('');
   const [dimension, setDimension] = useState([]);
   const [price, setPrice] = useState('');
   const [isLoading, setIsLoading] = useState(true);
@@ -30,6 +32,8 @@ const ProductDetail = () => {
       try {
         const res = await publicRequest.get(`products/find/${id}`);
         setProduct(res.data.data);
+        setShipping('Shipping');
+        setshippingPrice(100000);
         setIsLoading(false);
       } catch (error) {
         console.log(error);
@@ -71,7 +75,8 @@ const ProductDetail = () => {
   };
 
   const handleChangeQty = (e) => {
-    let value = e.target.value;
+    let { value, min, max } = e.target;
+    value = Math.max(Number(min), Math.min(Number(max), Number(value)));
 
     setQuantity(value);
   };
@@ -307,6 +312,8 @@ const ProductDetail = () => {
                       <Input
                         type='number'
                         value={quantity}
+                        min='1'
+                        max='10'
                         onChange={handleChangeQty}
                       />
                     </div>

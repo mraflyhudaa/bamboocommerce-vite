@@ -26,7 +26,7 @@ const Checkout = () => {
   });
   const [orderId, setOrderId] = useState('');
   const [midtransToken, setMidtransToken] = useState(null);
-  useState;
+  const [shippingPrice, setShippingPrice] = useState(null);
 
   const {
     email,
@@ -59,6 +59,7 @@ const Checkout = () => {
     if (cart.quantity == 0) {
       history.push('/');
     }
+    setShippingPrice(100000 * cart.quantity);
   }, [cart]);
 
   const currency = (total) => {
@@ -101,15 +102,23 @@ const Checkout = () => {
     try {
       const res = await publicRequest.post('/payment/', {
         nanoid: orderId,
-        total: cart.total,
-        products: cart.products.map((item) => ({
-          productId: item._id,
-          price: item.price,
-          quantity: item.quantity,
-          name: item.title,
-          category: item.categories,
-          merchant_name: 'Bamboo Craft Indonesia',
-        })),
+        total: cart.total + 100000,
+        products: cart.products.map((item) => [
+          {
+            productId: item._id,
+            price: item.price,
+            quantity: item.quantity,
+            name: item.title,
+            category: item.categories,
+            merchant_name: 'Bamboo Craft Indonesia',
+          },
+          {
+            id: 'item1',
+            price: 100000,
+            quantity: 1,
+            name: 'Shipping Fee',
+          },
+        ]),
         first_name: userData.firstName,
         last_name: userData.lastName,
         email: userData.email,
@@ -352,7 +361,7 @@ const Checkout = () => {
                         <div className='flex justify-between text-base font-medium text-gray-900 py-5 '>
                           <h3>Total</h3>
                           <div className='flex text-sm font-bold'>
-                            <p>{currency(cart.total)}</p>
+                            <p>{currency(cart.total + shippingPrice)}</p>
                           </div>
                         </div>
                       </div>
