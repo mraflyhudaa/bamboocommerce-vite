@@ -10,7 +10,7 @@ import {
 import { Link, useHistory } from 'react-router-dom';
 import { navigation } from '../data';
 import { useDispatch, useSelector } from 'react-redux';
-import { calculate, removeProduct } from '../redux/cartRedux';
+import { addProduct, calculate, removeProduct } from '../redux/cartRedux';
 import MenuDropdown from './Menu';
 import { LogoutIcon } from '@heroicons/react/solid';
 
@@ -94,7 +94,7 @@ const Navbar = () => {
     if (user) {
       history.push('/checkout');
     } else {
-      alert();
+      alert('You need to login first before checkout!');
       history.push('/signin');
     }
   };
