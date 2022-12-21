@@ -18,8 +18,8 @@ const Product = (props) => {
       try {
         const res = await axios.get(
           cat
-            ? `https://bamboocraftina.online/api/products?category=${cat}`
-            : 'https://bamboocraftina.online/api/products/'
+            ? `${import.meta.env.VITE_SERVER_API}/products?category=${cat}`
+            : `${import.meta.env.VITE_SERVER_API}/products/`
         );
         setProducts(res.data.data);
         setMessage(res.data.message);
