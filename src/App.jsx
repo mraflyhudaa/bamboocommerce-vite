@@ -13,6 +13,8 @@ import ScrollToTop from './components/ScrollToTop';
 import Checkout from './pages/Checkout';
 import Company from './pages/Company';
 import Home from './pages/Home';
+import Invoice from './pages/Invoice';
+import Orders from './pages/Orders';
 import ProductDetail from './pages/ProductDetail';
 import ProductList from './pages/ProductList';
 import Signin from './pages/Signin';
@@ -73,6 +75,12 @@ const App = () => {
           {/* <Route path='/company'>
             <Company />
           </Route> */}
+          <Route path='/orders'>
+            {!user ? <Redirect to={'/'} /> : <Orders />}
+          </Route>
+          <Route path='/invoice/:orderId'>
+            {!user ? <Redirect to={'/'} /> : <Invoice />}
+          </Route>
         </Switch>
       </Router>
       <ToastContainer
