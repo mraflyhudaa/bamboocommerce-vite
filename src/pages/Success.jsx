@@ -18,6 +18,11 @@ const Success = () => {
   const [status, setStatus] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
+  const address = {
+    address: input.address,
+    province: input.province,
+  };
+
   useEffect(() => {
     const createOrder = async () => {
       setIsLoading(true);
@@ -31,9 +36,11 @@ const Success = () => {
             productName: item.title,
             dimension: item.dimension,
             quantity: item.quantity,
+            price: item.price,
+            img: item.img,
           })),
           amount: cart.total,
-          address: input.address,
+          address: `${input.address}, ${input.city}, ${input.province} ${input.postalCode}`,
           status: data.transaction_status,
         });
         if (res.status === 200) {
