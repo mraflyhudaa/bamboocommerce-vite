@@ -110,7 +110,7 @@ const Checkout = () => {
             quantity: item.quantity,
             name: item.title,
             category: item.categories,
-            merchant_name: 'Bamboo Craft Indonesia',
+            merchant_name: 'BambooCommerce',
           },
           {
             id: 'item1',
