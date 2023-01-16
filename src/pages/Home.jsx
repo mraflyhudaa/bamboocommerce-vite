@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   AnnotationIcon,
   ArrowsExpandIcon,
@@ -9,13 +10,16 @@ import {
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import Product from '../components/Product';
-import { Link } from 'react-router-dom';
+
+import imgOutdoor from './../assets/image/bamboo_outdoor.webp';
+import imgIndoor from './../assets/image/bamboo_indoor.webp';
+import imgMaterial from './../assets/image/bamboo_material.webp';
 
 const callouts = [
   {
     name: 'Outside',
     description: 'fences, poles and mats, among others',
-    imageSrc: '../assets/image/bamboo_outdoor.webp',
+    imageSrc: imgOutdoor,
     imageAlt:
       'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
     href: '#',
@@ -24,7 +28,7 @@ const callouts = [
   {
     name: 'Inside',
     description: 'blinds, room dividers and more',
-    imageSrc: '../assets/image/bamboo_indoor.webp',
+    imageSrc: imgIndoor,
     imageAlt:
       'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
     href: '#',
@@ -33,7 +37,7 @@ const callouts = [
   {
     name: 'Building Materials',
     description: 'boards, plates and beams',
-    imageSrc: '../assets/image/bamboo_material.webp',
+    imageSrc: imgMaterial,
     imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
     href: '#',
     category: 'building',
@@ -132,7 +136,7 @@ const Home = () => {
                 <div key={callout.name} className='group relative'>
                   <div className='relative w-full h-80 bg-white rounded-lg overflow-hidden group-hover:opacity-75 sm:aspect-w-2 sm:aspect-h-1 sm:h-64 lg:aspect-w-1 lg:aspect-h-1'>
                     <img
-                      src={callout.imageSrc}
+                      src={`${callout.imageSrc.toString()}`}
                       alt={callout.imageAlt}
                       className='w-full h-full object-center object-cover'
                     />
