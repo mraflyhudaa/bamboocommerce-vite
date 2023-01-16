@@ -15,8 +15,7 @@ const callouts = [
   {
     name: 'Outside',
     description: 'fences, poles and mats, among others',
-    imageSrc:
-      'https://bambooimport.com/wp-content/uploads/2021/08/halfrond-scherm-in-bamboe-tuin-700x516.webp',
+    imageSrc: '../assets/image/bamboo_outdoor.webp',
     imageAlt:
       'Desk with leather desk pad, walnut desk organizer, wireless keyboard and mouse, and porcelain mug.',
     href: '#',
@@ -25,8 +24,7 @@ const callouts = [
   {
     name: 'Inside',
     description: 'blinds, room dividers and more',
-    imageSrc:
-      'https://bambooimport.com/wp-content/uploads/2021/08/Bamboe-rolgordijn-in-slaapkamer-700x511.jpg',
+    imageSrc: '../assets/image/bamboo_indoor.webp',
     imageAlt:
       'Wood table with porcelain mug, leather journal, brass pen, leather key ring, and a houseplant.',
     href: '#',
@@ -35,8 +33,7 @@ const callouts = [
   {
     name: 'Building Materials',
     description: 'boards, plates and beams',
-    imageSrc:
-      'https://bambooimport.com/wp-content/uploads/2021/08/Bamboe-plaatmateriaal-header-image1-1524x762.jpg',
+    imageSrc: '../assets/image/bamboo_material.webp',
     imageAlt: 'Collection of four insulated travel bottles on wooden shelf.',
     href: '#',
     category: 'building',
@@ -125,7 +122,8 @@ const Home = () => {
               fill='currentColor'
               viewBox='0 0 100 100'
               preserveAspectRatio='none'
-              aria-hidden='true'>
+              aria-hidden='true'
+            >
               <polygon points='50,0 100,0 50,100 0,100' />
             </svg>
             <main className='pt-10 z-0 overflow-y-auto mx-auto max-w-7xl px-4 sm:pt-8 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28'>
@@ -148,7 +146,8 @@ const Home = () => {
                   <div className='rounded-md shadow'>
                     <a
                       href='#categories'
-                      className='w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-normal rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10'>
+                      className='w-full flex items-center justify-center px-6 py-3 border border-transparent text-base font-normal rounded-md text-white bg-green-600 hover:bg-green-700 md:py-4 md:text-lg md:px-10'
+                    >
                       Order Now
                     </a>
                   </div>
