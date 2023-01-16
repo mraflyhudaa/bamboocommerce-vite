@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Navbar from '../components/Navbar';
 import { userRequest } from '../requestMethods';
+import Spinner from '../components/Spinner';
 
 const Orders = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -29,6 +30,10 @@ const Orders = () => {
   }, []);
 
   // console.log(orders);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
