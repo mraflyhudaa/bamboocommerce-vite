@@ -14,6 +14,7 @@ import Product from '../components/Product';
 import imgOutdoor from './../assets/image/bamboo_outdoor.webp';
 import imgIndoor from './../assets/image/bamboo_indoor.webp';
 import imgMaterial from './../assets/image/bamboo_material.webp';
+import imgHero from './../assets/image/bamboo_hero.webp';
 
 const callouts = [
   {
@@ -76,32 +77,21 @@ const Home = () => {
     <>
       <Navbar />
       <div className='relative bg-white overflow-hidden'>
-        <div className='max-w-7xl max-h-full  mx-auto'>
+        <div className='max-w-full max-h-full 3xl:mx-28 mx-auto'>
           <div className='relative z-10 pb-8 bg-white sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32'>
-            <svg
-              className='hidden lg:block absolute right-0 inset-y-0 h-[100vh] w-48 text-white transform translate-x-1/2'
-              fill='currentColor'
-              viewBox='0 0 100 100'
-              preserveAspectRatio='none'
-              aria-hidden='true'
-            >
-              <polygon points='50,0 100,0 50,100 0,100' />
-            </svg>
-            <main className='pt-10 z-0 overflow-y-auto mx-auto max-w-7xl px-4 sm:pt-8 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28'>
+            <main className='pt-10 z-0 overflow-y-auto mx-auto  max-w-7xl px-4 sm:pt-8 sm:px-6 md:pt-16 lg:pt-20 lg:px-8 xl:pt-28'>
               <div className='sm:text-center lg:text-left'>
                 <h1 className='text-4xl tracking-tight font-extrabold text-gray-900 sm:text-5xl md:text-6xl'>
-                  <span className='block xl:inline'>
-                    Feel the aesthetic of{' '}
-                    <span className='block text-green-600 xl:inline'>
-                      bamboo crafts
+                  <p className='block xl:inline'>
+                    Transform Your Space with{' '}
+                    <span className='inline text-green-600 '>
+                      Sustainable Bamboo Art
                     </span>
-                  </span>
+                  </p>
                 </h1>
                 <p className='mt-3 text-base text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-base lg:mx-0'>
-                  {/* Lorem ipsum dolor sit amet consectetur adipisicing elit. Harum
-                  laboriosam, hic maiores aspernatur fuga sunt magnam. Enim,
-                  quae asperiores? Debitis ipsa nemo voluptas error at mollitia
-                  pariatur rem iusto! Repudiandae? */}
+                  Add a touch of nature to your decor with our eco-friendly
+                  creations.
                 </p>
                 <div className='mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start'>
                   <div className='rounded-md shadow'>
@@ -118,9 +108,18 @@ const Home = () => {
           </div>
         </div>
         <div className='z-0 hidden sm:block lg:absolute lg:inset-y-0 lg:right-0 lg:w-1/2 mx-4 lg:m-0  '>
+          <svg
+            className='hidden lg:block absolute -left-48  inset-y-0 h-[100vh] w-48 text-white transform translate-x-1/2'
+            fill='currentColor'
+            viewBox='0 0 100 100'
+            preserveAspectRatio='none'
+            aria-hidden='true'
+          >
+            <polygon points='50,0 100,0 50,100 0,100' />
+          </svg>
           <img
-            className='h-56 w-full object-cover rounded-md lg:rounded-none left-10 sm:h-72 md:h-96 lg:w-full lg:h-full'
-            src='https://bambooimport.com/wp-content/uploads/2021/08/Bamboo-Import-Header-Image.webp'
+            className='h-56 w-full  object-cover rounded-md lg:rounded-none left-10 sm:h-72 md:h-96 lg:w-full lg:h-full'
+            src={imgHero}
             alt=''
           />
         </div>
@@ -169,9 +168,6 @@ const Home = () => {
       <div className='py-12 bg-white'>
         <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
           <div className='lg:text-center'>
-            {/* <h2 className='text-base text-green-600 font-semibold tracking-wide uppercase'>
-            Transactions
-          </h2> */}
             <p className='mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl'>
               <span className='text-green-500'>Why</span> Bamboo?
             </p>
@@ -182,12 +178,7 @@ const Home = () => {
               substantially against the threat of global warming.
             </p>
           </div>
-          {/* <div className='mx-auto lg:w-1/2 my-4'>
-          <img
-            className='object-cover rounded-lg'
-            src='https://images.unsplash.com/photo-1558299244-f4bb4dd735b2?crop=entropy&cs=tinysrgb&fm=jpg&ixlib=rb-1.2.1&q=80&raw_url=true&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470'
-          />
-        </div> */}
+
           <div className='mt-10'>
             <dl className='space-y-10 md:space-y-0 md:grid md:grid-cols-2 md:gap-x-8 md:gap-y-10'>
               {features.map((feature) => (
@@ -209,30 +200,6 @@ const Home = () => {
           </div>
         </div>
       </div>
-      {/* <div className='py-12 bg-white'>
-        <div className='max-w-7xl mx-auto px-4 sm:px-6 lg:px-8'>
-          <div className='h-[40vh] bg-green-600 rounded-lg flex items-center justify-center flex-col px-4'>
-            <h1 className='text-2xl md:text-3xl font-bold text-white text-center'>
-              Want product news and updates?
-            </h1>
-            <h2 className='text-base text-gray-200'>
-              Sign up for our newsletter.
-            </h2>
-            <div className='flex flex-col md:flex-row justify-center md:justify-between items-center md:items-start my-2'>
-              <input
-                type='email'
-                placeholder='john@email.com'
-                className='mb-2 rounded-md border-gray-300 focus:border-green-500 focus:ring-green-500'
-              />
-              <button
-                type='submit'
-                className='w-24 md:ml-4 text-green-700 bg-white hover:bg-green-100 rounded-md h-10 transition-colors'>
-                Notify Me
-              </button>
-            </div>
-          </div>
-        </div>
-      </div> */}
       <Footer />
     </>
   );

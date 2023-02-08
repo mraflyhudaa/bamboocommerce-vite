@@ -404,7 +404,7 @@ const Navbar = () => {
               {/* Logo */}
               <div className='flex ml-4 lg:ml-0'>
                 <Link to='/'>
-                  <span className='sr-only'>Workflow</span>
+                  <span className='sr-only'>Bamboo</span>
                   <svg
                     aria-hidden='true'
                     focusable='false'
@@ -530,7 +530,7 @@ const Navbar = () => {
                   <div className='hidden lg:flex lg:flex-1 lg:items-center lg:justify-end lg:space-x-6'>
                     <>
                       <Link
-                        to='signin'
+                        to='/signin'
                         className='text-sm font-normal text-gray-700 hover:text-gray-800'
                       >
                         Sign in
@@ -540,7 +540,7 @@ const Navbar = () => {
                         aria-hidden='true'
                       />
                       <Link
-                        to='signup'
+                        to='/signup'
                         className='text-sm font-normal text-gray-700 hover:text-gray-800'
                       >
                         Create account
